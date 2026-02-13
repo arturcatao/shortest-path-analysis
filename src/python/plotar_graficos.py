@@ -20,12 +20,12 @@ for tipo in tipos:
         label=tipo
     )
 
-plt.xlabel('Tamanho (size)')
-plt.ylabel('Tempo (time)')
-plt.title('Tempo vs Tamanho por Tipo')
+plt.xlabel('Tamanho (edges)')
+plt.ylabel('Tempo (ns)')
+plt.title('Tempo vs Tamanho')
 plt.legend()
 plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('grafico.png', dpi=300, bbox_inches='tight')
+plt.savefig('dijkstra', dpi=300, bbox_inches='tight')
 plt.show()
