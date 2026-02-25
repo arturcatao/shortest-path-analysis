@@ -1,5 +1,4 @@
-Análise Experimental de Estruturas de Heap no Desempenho do
-Algoritmo de Dijkstra
+# Análise Experimental de Diferentes Estruturas de Heap no Desempenho do Algoritmo de Dijkstra
 
 Projeto desenvolvido para a disciplina de **Estrutura de Dados e
 Algoritmos** do curso de **Ciência da Computação da UFCG**.
@@ -32,19 +31,17 @@ O projeto segue uma abordagem experimental, composta por:
 
 1. Adaptação de implementações existentes das estruturas de heap
    em Java  
-   2. Integração dessas estruturas ao algoritmo de Dijkstra  
-   3. Geração de grafos com diferentes características
-      (esparsos, densos, aleatórios e escala-livre)  
-      4. Execução dos experimentos e coleta de métricas como
-         tempo de execução, uso de memória e número de operações
-         relevantes  
-         5. Comparação dos resultados obtidos com as
+2. Integração dessas estruturas ao algoritmo de Dijkstra  
+3. Geração de grafos com diferentes características (esparsos, densos, aleatórios e escala-livre)  
+4. Execução dos experimentos e coleta de métricas como tempo de execução, uso de memória e número de operações
+relevantes  
+5. Comparação dos resultados obtidos com as
             expectativas teóricas
 
             Os resultados serão apresentados por meio de
             gráficos e análises comparativas.
 
-            ## 📊 Objetivo
+## 📊 Objetivo
 
             O principal objetivo do projeto é aproximar teoria e
             prática na análise de algoritmos, mostrando que o
@@ -58,3 +55,4 @@ O projeto segue uma abordagem experimental, composta por:
             desenvolvimento do projeto, incluindo instruções de
             execução, descrição dos experimentos e resultados
             obtidos.)*
+
