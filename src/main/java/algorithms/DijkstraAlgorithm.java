@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import heaps.MinPriorityQueue;
 
 /**
  * Dijkstra's algorithm for finding the shortest path from a single source vertex to all other vertices in a graph.
@@ -27,7 +28,7 @@ public class DijkstraAlgorithm {
      * @return An array where the value at each index {@code i} represents the shortest distance from the source vertex to vertex {@code i}.
      * @throws IllegalArgumentException if the source vertex is out of range.
      */
-    public int[] run(int[][] graph, int source) {
+    public int[] run(int[][] graph, int source, MinPriorityQueue pq) {
         if (source < 0 || source >= vertexCount) {
             throw new IllegalArgumentException("Incorrect source");
         }
@@ -37,19 +38,42 @@ public class DijkstraAlgorithm {
 
         Arrays.fill(distances, Integer.MAX_VALUE);
         Arrays.fill(processed, false);
+
         distances[source] = 0;
 
-        for (int count = 0; count < vertexCount - 1; count++) {
-            int u = getMinDistanceVertex(distances, processed);
+        // Inserir TODOS os vértices na heap no início
+        for (int i = 0; i < vertexCount; i++) {
+            pq.insert(i, distances[i]);
+        }
+
+        //insere o vértice inicial na fila
+        //pq.insert(source, 0);
+
+        while (!pq.isEmpty()) {
+            
+            int u = pq.extractMin();
+
+            if (processed[u]) continue;
+
             processed[u] = true;
 
             for (int v = 0; v < vertexCount; v++) {
-                if (!processed[v] && graph[u][v] != 0 && distances[u] != Integer.MAX_VALUE && distances[u] + graph[u][v] < distances[v]) {
-                    distances[v] = distances[u] + graph[u][v];
+                
+                if (!processed[v] && graph[u][v] != 0 &&
+                distances[u] != Integer.MAX_VALUE) {
+
+                    int newDist = distances[u] + graph[u][v];
+
+                    if (newDist < distances[v]) {
+                        distances[v] = newDist;
+
+                        //atualizando prioridade na heap
+                        pq.decreaseKey(v, newDist);
+                    }
                 }
             }
         }
-
+        
         //printDistances(distances);
         return distances;
     }
@@ -60,7 +84,7 @@ public class DijkstraAlgorithm {
      * @param distances The array of current shortest distances from the source vertex.
      * @param processed The array indicating whether each vertex has been processed.
      * @return The index of the vertex with the minimum distance value.
-     */
+     *
     private int getMinDistanceVertex(int[] distances, boolean[] processed) {
         int min = Integer.MAX_VALUE;
         int minIndex = -1;
@@ -74,6 +98,7 @@ public class DijkstraAlgorithm {
 
         return minIndex;
     }
+    */
 
     /**
      * Prints the shortest distances from the source vertex to all other vertices.
