@@ -1,3 +1,5 @@
+package benchmarks;
+import algorithms.DijkstraAlgorithm;
 import java.io.*;
 import java.util.Arrays;
 
@@ -26,7 +28,7 @@ public class AnaliseDijkstra{
                 // Testa Dijkstra
                 DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(numVertices);
                 long start = System.nanoTime();
-                dijkstra.run(graph, 0);
+                // dijkstra.run(graph, 0); falta colocar o heap
                 long end = System.nanoTime();
                 long time = end - start;
                 
