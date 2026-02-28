@@ -1,4 +1,5 @@
 package algorithms;
+import heaps.PriorityQueue;
 import java.util.Arrays;
 
 /**
