@@ -1,6 +1,6 @@
 package algorithms;
 
-public interface MinPriorityQueue{
+public interface PriorityQueue{
     
     //todas as filas de prioridade precisam ter um insert
     //recebendo os mesmos parâmetros: vertex (qual vertice
