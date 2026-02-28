@@ -1,4 +1,5 @@
 package algorithms;
+
 public interface MinPriorityQueue{
     
     //todas as filas de prioridade precisam ter um insert
