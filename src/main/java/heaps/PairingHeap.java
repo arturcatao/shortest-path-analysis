@@ -1,57 +1,93 @@
 package heaps;
 
-public class PairingHeap {
-    HeapNode root;
+public class PairingHeap implements MyPriorityQueue{
 
-    public PairingHeap() {
+    private HeapNode root;
+    private HeapNode[] nodes; // acesso direto aos vértices
+
+    public PairingHeap(int maxVertices) {
         root = null;
+        nodes = new HeapNode[maxVertices];
     }
 
+    //Alteração de métodos
+    @Override
     public boolean isEmpty() {
         return root == null;
     }
 
-    public int top() {
-        return root.key;
+    @Override
+    public void insert(int vertex, int priority) {
+        HeapNode newNode = new HeapNode(vertex, priority);
+
+        nodes[vertex] = newNode;
+        root = merge(root, newNode);
     }
 
-    public void insert(int key) {
-        root = insert(root, key);
+    @Override
+    public int extractMin() {
+        if (root == null) return -1;
+
+        int minVertex = root.vertex;
+
+        nodes[minVertex] = null;
+        root = twoPassMerge(root.leftChild);
+
+        if (root != null) root.parent = null;
+
+        return minVertex;
     }
 
-    public void delete() {
-        root = delete(root);
+    @Override
+    public void decreaseKey(int vertex, int newPriority) {
+        HeapNode node = nodes[vertex];
+
+        if (node == null) return;
+
+        if (node.priority <= newPriority) return;
+
+        node.priority = newPriority;
+
+        if (node != root) {
+            cut(node);
+            root = merge(root, node);
+        }
     }
 
-    public void join(PairingHeap other) {
-        root = merge(root, other.root);
-    }
+   
+    //Metodo auxiliares
+    private void cut(HeapNode node) {
+        if (node.parent != null) {
+            if (node.parent.leftChild == node) {
+                node.parent.leftChild = node.nextSibling;
+            } else {
+                HeapNode sibling = node.parent.leftChild;   
+                while (sibling.nextSibling != node) {
+                    sibling = sibling.nextSibling;
+                }
+                sibling.nextSibling = node.nextSibling;
+            }
+        }
 
-    // Helper functions
-    private HeapNode insert(HeapNode node, int key) {
-        return merge(node, new HeapNode(key, null, null));
-    }
-
-    private HeapNode delete(HeapNode node) {
-        return twoPassMerge(node.leftChild);
+        node.parent = null;
+        node.nextSibling = null;
     }
 
     private HeapNode merge(HeapNode a, HeapNode b) {
-        // If any of the two nodes is null,
-        // return the not null node
-        if (a == null)
-            return b;
-        if (b == null)
-            return a;
+        if (a == null) return b;
+        if (b == null) return a;
 
-        // To maintain the min heap condition compare
-        // the nodes and node with minimum value become
-        // parent of the other node
-        if (a.key < b.key) {
-            a.addChild(b);
+        if (a.priority < b.priority) {
+            b.nextSibling = a.leftChild;
+            if (a.leftChild != null) a.leftChild.parent = b;
+            a.leftChild = b;
+            b.parent = a;
             return a;
         } else {
-            b.addChild(a);
+            a.nextSibling = b.leftChild;
+            if (b.leftChild != null) b.leftChild.parent = a;
+            b.leftChild = a;
+            a.parent = b;
             return b;
         }
     }
@@ -59,44 +95,31 @@ public class PairingHeap {
     private HeapNode twoPassMerge(HeapNode node) {
         if (node == null || node.nextSibling == null)
             return node;
-        else {
-            HeapNode a, b, newNode;
-            a = node;
-            b = node.nextSibling;
-            newNode = node.nextSibling.nextSibling;
 
-            a.nextSibling = null;
-            b.nextSibling = null;
+        HeapNode a = node;
+        HeapNode b = node.nextSibling;
+        HeapNode rest = b.nextSibling;
 
-            return merge(merge(a, b), twoPassMerge(newNode));
-        }
+        a.nextSibling = null;
+        b.nextSibling = null;
+
+        return merge(merge(a, b), twoPassMerge(rest));
     }
 }
 
 class HeapNode{
-    int key;
+     int vertex;
+    int priority;
+
     HeapNode leftChild;
     HeapNode nextSibling;
+    HeapNode parent;
 
-    public HeapNode() {
-        leftChild = null;
-        nextSibling = null;
-    }
-
-    // creates a new node
-    public HeapNode(int key_, HeapNode leftChild_, HeapNode nextSibling_) {
-        key = key_;
-        leftChild = leftChild_;
-        nextSibling = nextSibling_;
-    }
-
-    // Adds a child and sibling to the node
-    public void addChild(HeapNode node) {
-        if (leftChild == null)
-            leftChild = node;
-        else {
-            node.nextSibling = leftChild;
-            leftChild = node;
-        }
+    public HeapNode(int vertex, int priority) {
+        this.vertex = vertex;
+        this.priority = priority;
+        this.leftChild = null;
+        this.nextSibling = null;
+        this.parent = null;
     }
 }
