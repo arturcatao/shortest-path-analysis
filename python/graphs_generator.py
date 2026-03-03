@@ -1,9 +1,9 @@
 import os
 import random
-import dijkstra_graphs as gg
+import dijkstra_graphs as dg
 
 def main():
-
+    
     csv_densos = "../experiments/data/dense_graphs.csv"
     csv_espasos = "../experiments/data/sparse_graphs.csv"
     csv_medios = "../experiments/data/medium_graphs.csv"
@@ -16,13 +16,13 @@ def main():
         for _ in range(AMOSTRAS):
             graph_id += 1
 
-            denso = gg.gerar_grafos_densos(num_vertices)
+            denso = dg.gerar_grafos_densos(num_vertices)
             salvar(denso, graph_id, num_vertices, csv_densos)
 
-            esparso = gg.gerar_grafos_esparsos(num_vertices)
+            esparso = dg.gerar_grafos_esparsos(num_vertices)
             salvar(esparso, graph_id, num_vertices, csv_espasos)
 
-            medio = gg.gerar_grafos_medios(num_vertices)
+            medio = dg.gerar_grafos_medios(num_vertices)
             salvar(medio, graph_id, num_vertices, csv_medios)
 
 

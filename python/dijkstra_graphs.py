@@ -7,7 +7,6 @@ def gerar_grafos(num_vertices, densidade):
 
     graph = []
     existing_eges = set()
-    random.seed(13)
 
     vertex = list(range(num_vertices))
     random.shuffle(vertex)
