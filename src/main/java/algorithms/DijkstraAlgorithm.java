@@ -1,5 +1,5 @@
 package algorithms;
-import heaps.PriorityQueue;
+import heaps.MyPriorityQueue;
 import java.util.Arrays;
 
 /**
@@ -29,7 +29,7 @@ public class DijkstraAlgorithm {
      * @return An array where the value at each index {@code i} represents the shortest distance from the source vertex to vertex {@code i}.
      * @throws IllegalArgumentException if the source vertex is out of range.
      */
-    public int[] run(int[][] graph, int source, PriorityQueue pq) {
+    public int[] run(int[][] graph, int source, MyPriorityQueue pq) {
         if (source < 0 || source >= vertexCount) {
             throw new IllegalArgumentException("Incorrect source");
         }
