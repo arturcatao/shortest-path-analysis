@@ -1,6 +1,6 @@
 package heaps;
 
-public interface PriorityQueue{
+public interface MyPriorityQueue{
     
     //todas as filas de prioridade precisam ter um insert
     //recebendo os mesmos parâmetros: vertex (qual vertice

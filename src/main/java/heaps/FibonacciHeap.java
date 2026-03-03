@@ -7,7 +7,7 @@
 */
 package heaps;
 import java.util.*;
-public class FibonacciHeap implements PriorityQueue {
+public class FibonacciHeap implements MyPriorityQueue {
 
     private FibonacciNode minRoot, head;
     private int size;
