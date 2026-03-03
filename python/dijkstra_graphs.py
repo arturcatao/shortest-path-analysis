@@ -1,45 +1,37 @@
 import random
 
+#retorna a lista de adjacencia
 def gerar_grafos(num_vertices, densidade):
     PESO_MIN = 1
     PESO_MAX = 100
 
+    graph = []
+    existing_eges = set()
     random.seed(13)
-    # Gera a matriz do grafo
-    grafo = []
-    for i in range(num_vertices):
-        linha = []
-        for j in range(num_vertices):
-            linha.append(0)
-        grafo.append(linha)
+
+    vertex = list(range(num_vertices))
+    random.shuffle(vertex)
     
-    # Embaralha os vertices para gerar arestas aleatorias
-    vertices = list(range(num_vertices))
-    random.shuffle(vertices)
+    for i in range(len(vertex) - 1):
+        vertexA = vertex[i]
+        vertexB = vertex[i + 1]
 
-    # Gera as arestas de A para B e B para A, garantindo que o grafo seja conexo
-    for i in range(len(vertices) - 1):
         peso = random.randint(PESO_MIN, PESO_MAX)
-        v1 = vertices[i]
-        v2 = vertices[i + 1]
 
-        grafo[v1][v2] = peso
-        grafo[v2][v1] = peso 
+        edge = (vertexA, vertexB, peso)
+        graph.append(edge)
+        existing_eges.add((min(vertexA, vertexB), max(vertexA, vertexB)))
 
-    # Gera mais arestas para ficar de acordo com densidade
-    for i in range(len(grafo)):
-        for j in range(i + 1, num_vertices):
-            if grafo[i][j] == 0 and random.randint(1, 100) <= densidade * 100:
-                grafo[i][j] = random.randint(PESO_MIN, PESO_MAX)
-                grafo[j][i] = grafo[i][j]            
-
-
-    saida = ""
-    for linha in grafo:
-        for i in range(len(linha)):
-            saida += str(linha[i]) + " "
-
-    return saida.strip()
+    for i in range(num_vertices):
+        for j in range(i + 1, num_vertices) :
+            pair = (i, j)
+            if pair not in existing_eges and random.randint(1, 100) <= densidade * 100:
+                peso = random.randint(PESO_MIN, PESO_MAX)
+                edge = (i, j, peso)
+                graph.append(edge)
+                existing_eges.add((i, j))
+    
+    return graph
 
 
 def gerar_grafos_esparsos(num_vertices):
