@@ -1,6 +1,5 @@
 import random
 
-
 def gerar_grafos(num_vertices, densidade):
     PESO_MIN = 1
     PESO_MAX = 100
