@@ -1,16 +1,18 @@
 package heaps;
 
-public class PairingHeap implements MyPriorityQueue{
+import java.util.ArrayList;
+import java.util.List;
+
+public class PairingHeap implements MyPriorityQueue {
 
     private HeapNode root;
-    private HeapNode[] nodes; // acesso direto aos vértices
+    private HeapNode[] nodes;
 
     public PairingHeap(int maxVertices) {
         root = null;
         nodes = new HeapNode[maxVertices];
     }
 
-    //Alteração de métodos
     @Override
     public boolean isEmpty() {
         return root == null;
@@ -19,7 +21,6 @@ public class PairingHeap implements MyPriorityQueue{
     @Override
     public void insert(int vertex, int priority) {
         HeapNode newNode = new HeapNode(vertex, priority);
-
         nodes[vertex] = newNode;
         root = merge(root, newNode);
     }
@@ -29,11 +30,14 @@ public class PairingHeap implements MyPriorityQueue{
         if (root == null) return -1;
 
         int minVertex = root.vertex;
-
-        nodes[minVertex] = null;
+        nodes[minVertex] = null; // Remove do controle
+        
         root = twoPassMerge(root.leftChild);
 
-        if (root != null) root.parent = null;
+        if (root != null) {
+            root.parent = null;
+            root.prevSibling = null;
+        }
 
         return minVertex;
     }
@@ -42,9 +46,7 @@ public class PairingHeap implements MyPriorityQueue{
     public void decreaseKey(int vertex, int newPriority) {
         HeapNode node = nodes[vertex];
 
-        if (node == null) return;
-
-        if (node.priority <= newPriority) return;
+        if (node == null || node.priority <= newPriority) return;
 
         node.priority = newPriority;
 
@@ -54,65 +56,98 @@ public class PairingHeap implements MyPriorityQueue{
         }
     }
 
-   
-    //Metodo auxiliares
+    // --- Métodos Auxiliares ---
+
+    // Agora é O(1) graças ao prevSibling
     private void cut(HeapNode node) {
-        if (node.parent != null) {
-            if (node.parent.leftChild == node) {
-                node.parent.leftChild = node.nextSibling;
-            } else {
-                HeapNode sibling = node.parent.leftChild;   
-                while (sibling.nextSibling != node) {
-                    sibling = sibling.nextSibling;
-                }
-                sibling.nextSibling = node.nextSibling;
-            }
+        if (node.parent == null) return; // Já é raiz
+
+        if (node.prevSibling != null) {
+            node.prevSibling.nextSibling = node.nextSibling;
+        } else {
+            // Se não tem irmão anterior, ele é o filho esquerdo do pai
+            node.parent.leftChild = node.nextSibling;
+        }
+
+        if (node.nextSibling != null) {
+            node.nextSibling.prevSibling = node.prevSibling;
         }
 
         node.parent = null;
         node.nextSibling = null;
+        node.prevSibling = null;
     }
 
     private HeapNode merge(HeapNode a, HeapNode b) {
         if (a == null) return b;
         if (b == null) return a;
 
-        if (a.priority < b.priority) {
+        if (a.priority <= b.priority) {
             b.nextSibling = a.leftChild;
-            if (a.leftChild != null) a.leftChild.parent = b;
+            if (a.leftChild != null) {
+                a.leftChild.prevSibling = b;
+            }
             a.leftChild = b;
             b.parent = a;
+            b.prevSibling = null; // b vira o primeiro filho
             return a;
         } else {
             a.nextSibling = b.leftChild;
-            if (b.leftChild != null) b.leftChild.parent = a;
+            if (b.leftChild != null) {
+                b.leftChild.prevSibling = a;
+            }
             b.leftChild = a;
             a.parent = b;
+            a.prevSibling = null; // a vira o primeiro filho
             return b;
         }
     }
 
     private HeapNode twoPassMerge(HeapNode node) {
-        if (node == null || node.nextSibling == null)
-            return node;
+        if (node == null) return null;
 
-        HeapNode a = node;
-        HeapNode b = node.nextSibling;
-        HeapNode rest = b.nextSibling;
+        List<HeapNode> treeList = new ArrayList<>();
 
-        a.nextSibling = null;
-        b.nextSibling = null;
+        // 1ª passada: merge em pares
+        while (node != null) {
+            HeapNode a = node;
+            HeapNode b = node.nextSibling;
+            node = (b != null) ? b.nextSibling : null;
 
-        return merge(merge(a, b), twoPassMerge(rest));
+            // Limpa as conexões laterais para evitar vazamentos/ciclos
+            a.nextSibling = null;
+            a.prevSibling = null;
+            a.parent = null;
+
+            if (b != null) {
+                b.nextSibling = null;
+                b.prevSibling = null;
+                b.parent = null;
+                treeList.add(merge(a, b));
+            } else {
+                treeList.add(a);
+            }
+        }
+
+        if (treeList.isEmpty()) return null;
+
+        // 2ª passada: merge da direita pra esquerda
+        HeapNode result = treeList.get(treeList.size() - 1);
+        for (int i = treeList.size() - 2; i >= 0; i--) {
+            result = merge(treeList.get(i), result);
+        }
+
+        return result;
     }
 }
 
-class HeapNode{
-     int vertex;
+class HeapNode {
+    int vertex;
     int priority;
 
     HeapNode leftChild;
     HeapNode nextSibling;
+    HeapNode prevSibling; // Essencial para O(1) no método cut()
     HeapNode parent;
 
     public HeapNode(int vertex, int priority) {
@@ -120,6 +155,7 @@ class HeapNode{
         this.priority = priority;
         this.leftChild = null;
         this.nextSibling = null;
+        this.prevSibling = null;
         this.parent = null;
     }
 }
