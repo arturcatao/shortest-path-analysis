@@ -1,16 +1,28 @@
 package benchmarks;
 
-import algorithms.DijkstraAlgorithmLista;
-import algorithms.DijkstraAlgorithmLista.Edge;
-import heaps.MyPriorityQueue;
-import heaps.PairingHeap;
-import heaps.BinaryHeap;
-
-import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.infra.Blackhole;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Measurement;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
+
+import algorithms.DijkstraAlgorithmLista;
+import algorithms.Edge;
+import heaps.BinaryHeap;
+import heaps.FibonacciHeap;
+import heaps.MyPriorityQueue;
+import heaps.PairingHeap;
 
 // Isso é um benchmark JMH, ele mede o tempo médio de execução do
 // algoritmo de dijkstra, que varia o tipo de grafo, o tamanho e
@@ -38,11 +50,11 @@ public class DijkstraBenchmark {
     // ---------------------------
 
     // Tipo de grafo
-    @Param({"DENSE", "MEDIUM", "SPARSE"})
+    @Param({"DENSE", "MEDIUM"}) //, "SPARSE"})
     private String graphType;
 
     // Número de vértices
-    @Param({"100", "500", "1000", "5000", "10000"})
+    @Param({"100", "500"}) //, "1000", "5000", "10000"})
     private int size;
     
     /**
@@ -55,7 +67,7 @@ public class DijkstraBenchmark {
     */
 
     // Tipo de heap
-    @Param({"PAIRING", "BINARY"})
+    @Param({"PAIRING", "BINARY", "FIBONACCI"})
     private String heapType;
 
     //---------------------
@@ -114,6 +126,10 @@ public class DijkstraBenchmark {
 
                 case "BINARY":
                     pq = new BinaryHeap(size);
+                    break;
+
+                case "FIBONACCI":
+                    pq = new FibonacciHeap();
                     break;
 
                 default:

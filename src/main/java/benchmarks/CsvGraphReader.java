@@ -1,18 +1,21 @@
 package benchmarks;
 
-import algorithms.DijkstraAlgorithmLista.Edge;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import algorithms.Edge;
 
 // Esse graph reader ainda não é o oficial!
 
 public class CsvGraphReader {
 
     @SuppressWarnings("unchecked")
-    public static List<List<Edge>[]> readAllGraphsOfSize(String path int numVertices) {
+    public static List<List<Edge>[]> readAllGraphsOfSize(String path, int numVertices) {
 
         // Map: idGrafo -> lista de arestas
         Map<Integer, List<int[]>> edgesByGraph = new HashMap<>();
