@@ -4,9 +4,9 @@ import dijkstra_graphs as dg
 
 def main():
     
-    csv_densos = "../experiments/data/dense_graphs.csv"
-    csv_espasos = "../experiments/data/sparse_graphs.csv"
-    csv_medios = "../experiments/data/medium_graphs.csv"
+    csv_densos = "experiments/data/dense_graphs.csv"
+    csv_esparsos = "experiments/data/sparse_graphs.csv"
+    csv_medios = "experiments/data/medium_graphs.csv"
 
     tamanhos = [100, 500, 1000, 5000, 10000]
     AMOSTRAS = 100
@@ -20,7 +20,7 @@ def main():
             salvar(denso, graph_id, num_vertices, csv_densos)
 
             esparso = dg.gerar_grafos_esparsos(num_vertices)
-            salvar(esparso, graph_id, num_vertices, csv_espasos)
+            salvar(esparso, graph_id, num_vertices, csv_esparsos)
 
             medio = dg.gerar_grafos_medios(num_vertices)
             salvar(medio, graph_id, num_vertices, csv_medios)

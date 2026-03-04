@@ -1,4 +1,5 @@
 import random
+import math
 
 #retorna a lista de adjacencia
 def gerar_grafos(num_vertices, densidade):
@@ -34,12 +35,12 @@ def gerar_grafos(num_vertices, densidade):
 
 
 def gerar_grafos_esparsos(num_vertices):
-    grafos = densidade = 0.1
+    densidade = 2 / num_vertices
     return gerar_grafos(num_vertices, densidade)
 
 
 def gerar_grafos_medios(num_vertices):
-    densidade = 0.5
+    densidade = math.log(num_vertices) / num_vertices
     return gerar_grafos(num_vertices, densidade)
 
 

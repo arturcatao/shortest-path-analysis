@@ -1,4 +1,10 @@
+# Java / Maven
+target/
+*.jar
 *.class
+*.lst
+
+# CSV
 *.csv
 
 # Byte-compiled / optimized files
