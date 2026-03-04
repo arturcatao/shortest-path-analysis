@@ -1,6 +1,6 @@
 package heaps;
 
-public class contadorDeOperacoes {
+public class ContadorDeOperacoes {
     private static long decreaseKeyCount = 0;
 
     public static void incrementaDecreaseKey() {

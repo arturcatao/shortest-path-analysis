@@ -41,7 +41,7 @@ public class BinaryHeap implements MyPriorityQueue {
 
     @Override
     public void decreaseKey(int vertex, int newPriority) {
-        contadorDeOperacoes.incrementaDecreaseKey();
+        ContadorDeOperacoes.incrementaDecreaseKey();
         prioridade[vertex] = newPriority;
         heapifyUp(posicao[vertex]);
     }
