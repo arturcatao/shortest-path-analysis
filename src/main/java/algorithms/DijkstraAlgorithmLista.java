@@ -107,7 +107,7 @@ public class DijkstraAlgorithmLista {
      */
 }
 
-class Edge {
+public static class Edge {
     int to;
     int weight;
 
