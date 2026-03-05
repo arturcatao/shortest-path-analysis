@@ -50,7 +50,7 @@ public class DijkstraBenchmark {
     // ---------------------------
 
     // Tipo de grafo
-    @Param({"DENSE", "MEDIUM"}) //, "SPARSE"})
+    @Param({"MEDIUM", "SPARSE", "DENSE"}) // "DENSE"
     private String graphType;
 
     // Número de vértices
