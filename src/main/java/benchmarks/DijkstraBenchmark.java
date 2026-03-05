@@ -54,7 +54,7 @@ public class DijkstraBenchmark {
     private String graphType;
 
     // Número de vértices
-    @Param({"100", "500"}) //, "1000", "5000", "10000"})
+    @Param({"100", "500", "1000", "2000"}) //, "1000", "5000", "10000"})
     private int size;
     
     /**
