@@ -2,7 +2,9 @@ import random
 import math
 
 #retorna a lista de adjacencia
-def gerar_grafos(num_vertices, densidade):
+def gerar_grafos(num_vertices, densidade, seed):
+    random.seed(seed)
+    
     PESO_MIN = 1
     PESO_MAX = 100
 
@@ -34,16 +36,16 @@ def gerar_grafos(num_vertices, densidade):
     return graph
 
 
-def gerar_grafos_esparsos(num_vertices):
+def gerar_grafos_esparsos(num_vertices, seed):
     densidade = 2 / num_vertices
-    return gerar_grafos(num_vertices, densidade)
+    return gerar_grafos(num_vertices, densidade, seed)
 
 
-def gerar_grafos_medios(num_vertices):
+def gerar_grafos_medios(num_vertices, seed):
     densidade = math.log(num_vertices) / num_vertices
-    return gerar_grafos(num_vertices, densidade)
+    return gerar_grafos(num_vertices, densidade, seed)
 
 
-def gerar_grafos_densos(num_vertices):
+def gerar_grafos_densos(num_vertices, seed):
     densidade = 0.9
-    return gerar_grafos(num_vertices, densidade)
+    return gerar_grafos(num_vertices, densidade, seed)
