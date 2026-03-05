@@ -6,6 +6,7 @@ target/
 
 # CSV
 *.csv
+!experiments/results/dijkstra_results.csv
 
 # Byte-compiled / optimized files
 __pycache__/
