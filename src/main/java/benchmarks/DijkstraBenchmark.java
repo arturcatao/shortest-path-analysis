@@ -14,6 +14,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Timeout;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 
@@ -40,6 +41,7 @@ import heaps.PairingHeap;
 @BenchmarkMode(Mode.AverageTime) 
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Warmup(iterations = 3)
+@Timeout(time = 10, timeUnit = TimeUnit.MINUTES)
 @Measurement(iterations = 5)
 @Fork(1)
 

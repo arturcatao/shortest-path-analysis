@@ -8,7 +8,7 @@ def main():
     csv_esparsos = "experiments/data/sparse_graphs.csv"
     csv_medios = "experiments/data/medium_graphs.csv"
 
-    tamanhos = [100, 500, 1000, 2000] # , 5000, 10000]
+    tamanhos = [1500] # [100, 500, 1000, 2000] # , 5000, 10000]
     AMOSTRAS = 100
 
     graph_id = 0
