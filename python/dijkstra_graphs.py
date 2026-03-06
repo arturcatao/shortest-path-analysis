@@ -37,15 +37,15 @@ def gerar_grafos(num_vertices, densidade, seed):
 
 
 def gerar_grafos_esparsos(num_vertices, seed):
-    densidade = 2 / num_vertices
-    return gerar_grafos(num_vertices, densidade, seed)
-
-
-def gerar_grafos_medios(num_vertices, seed):
     densidade = math.log(num_vertices) / num_vertices
     return gerar_grafos(num_vertices, densidade, seed)
 
 
+def gerar_grafos_medios(num_vertices, seed):
+    densidade = 1 / math.sqrt(num_vertices)
+    return gerar_grafos(num_vertices, densidade, seed)
+
+
 def gerar_grafos_densos(num_vertices, seed):
-    densidade = 0.9
+    densidade = math.log(num_vertices) / math.sqrt(num_vertices)
     return gerar_grafos(num_vertices, densidade, seed)
