@@ -2,34 +2,29 @@ import os
 import random
 import dijkstra_graphs as dg
 
+CSV = "experiments/data/graphs.csv"
+
 def main():
     
-    csv_densos = "experiments/data/dense_graphs.csv"
-    csv_esparsos = "experiments/data/sparse_graphs.csv"
-    csv_medios = "experiments/data/medium_graphs.csv"       
 
     tamanhos =  [100, 500, 1000, 1500]
-    AMOSTRAS = 100
+    densidades = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    AMOSTRAS = 50 #100
 
     graph_id = 0
     for num_vertices in tamanhos:
-        for _ in range(AMOSTRAS):
-            graph_id += 1
+        for densidade in densidades:
+            for _ in range(AMOSTRAS):
+                graph_id += 1
 
-            denso = dg.gerar_grafos_densos(num_vertices, graph_id)
-            salvar(denso, graph_id, num_vertices, csv_densos)
-
-            esparso = dg.gerar_grafos_esparsos(num_vertices, graph_id)
-            salvar(esparso, graph_id, num_vertices, csv_esparsos)
-
-            medio = dg.gerar_grafos_medios(num_vertices, graph_id)
-            salvar(medio, graph_id, num_vertices, csv_medios)
+                graph = dg.gerar_grafos(num_vertices, densidade, graph_id)
+                salvar(graph, graph_id, num_vertices, densidade)
 
 
 
-def salvar(graph,id ,num_vertices, csv):
-    with open(csv, "a") as arquivo:
+def salvar(graph,id ,num_vertices, densidade):
+    with open(CSV, "a") as arquivo:
         for edge in graph:
-            arquivo.write(str(id) + "," + str(num_vertices) + "," + ",".join(map(str, edge)) + "\n")    
+            arquivo.write(str(id) + ","  + str(densidade) + "," + str(num_vertices) + "," + ",".join(map(str, edge)) + "\n")    
 
 main()
