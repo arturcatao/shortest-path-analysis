@@ -1,8 +1,6 @@
-import os
-import random
 import dijkstra_graphs as dg
 
-CSV = "experiments/data/graphs.csv"
+CAMINHO = "experiments/data/"
 
 def main():
     
@@ -15,16 +13,18 @@ def main():
     for num_vertices in tamanhos:
         for densidade in densidades:
             for _ in range(AMOSTRAS):
+                csv = CAMINHO + f"graphs_{int(densidade * 100)}.csv"
+
                 graph_id += 1
 
                 graph = dg.gerar_grafos(num_vertices, densidade, graph_id)
-                salvar(graph, graph_id, num_vertices, densidade)
+                salvar(graph, graph_id, num_vertices, densidade, csv)
 
 
 
-def salvar(graph,id ,num_vertices, densidade):
-    with open(CSV, "a") as arquivo:
+def salvar(graph,id ,num_vertices, densidade, csv):
+    with open(csv, "a") as arquivo:
         for edge in graph:
-            arquivo.write(str(id) + ","  + str(densidade) + "," + str(num_vertices) + "," + ",".join(map(str, edge)) + "\n")    
+            arquivo.write(str(id) + "," + str(num_vertices) + "," + ",".join(map(str, edge)) + "\n")    
 
 main()
