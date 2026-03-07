@@ -32,4 +32,4 @@ def salvar(graph,id ,num_vertices, csv):
         for edge in graph:
             arquivo.write(str(id) + "," + str(num_vertices) + "," + ",".join(map(str, edge)) + "\n")    
 
-main()
+main() 
