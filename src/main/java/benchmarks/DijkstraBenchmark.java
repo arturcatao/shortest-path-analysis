@@ -50,24 +50,14 @@ public class DijkstraBenchmark {
     // ---------------------------
     //< PARÂMETROS DO EXPERIMENTO >
     // ---------------------------
-
-    // Tipo de grafo
-    @Param({"MEDIUM", "SPARSE", "DENSE"}) // "DENSE"
-    private String graphType;
-
+    
+    @Param({"10","30","50","70","90"})
+    private int density;
+    
     // Número de vértices
     @Param({"100", "500", "1000", "1500"}) //, "1000", "5000", "10000"})
     private int size;
     
-    /**
-    // Amostra do grafo (ID no CSV)
-    @Param({
-            "1","2","3","4","5","6","7","8","9","10"
-            // podemos expandir
-    })
-    private int sample;
-    */
-
     // Tipo de heap
     @Param({"PAIRING", "BINARY", "FIBONACCI"})
     private String heapType;
@@ -77,7 +67,6 @@ public class DijkstraBenchmark {
     //---------------------
  
     private List<List<Edge>[]> graphs;
-    //private List<Edge>[] graph;
 
     //-----------------------------------------
     // SETUP (executa 1 vez por rodada de teste)
@@ -86,30 +75,11 @@ public class DijkstraBenchmark {
     @Setup(Level.Trial)
     public void setup() {
 
-        String path;
+        String path = "experiments/data/graphs_" + density + ".csv";
 
-        switch (graphType) {
-            case "DENSE":
-                path = "experiments/data/dense_graphs.csv";
-                break;
-
-            case "MEDIUM":
-                path = "experiments/data/medium_graphs.csv";
-                break;
-
-            case "SPARSE":
-                path = "experiments/data/sparse_graphs.csv";
-                break;
-
-            default:
-                throw new IllegalArgumentException("Tipo de grafo inválido");
-        }
-
-        //graph = CsvGraphReader.readGraph(path, size, sample);
         graphs = CsvGraphReader.readAllGraphsOfSize(path, size);
-
     }
-
+    
     //----------
     // BENCHMARK
     //----------
