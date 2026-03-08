@@ -3,6 +3,7 @@ package benchmarks;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openjdk.jmh.annotations.AuxCounters;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -21,6 +22,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import algorithms.DijkstraAlgorithmLista;
 import algorithms.Edge;
 import heaps.BinaryHeap;
+import heaps.ContadorDeOperacoes;
 import heaps.FibonacciHeap;
 import heaps.MyPriorityQueue;
 import heaps.PairingHeap;
@@ -85,7 +87,7 @@ public class DijkstraBenchmark {
     //----------
 
     @Benchmark
-    public void runDijkstra(Blackhole blackhole) {
+    public void runDijkstra(Metricas metricas, Blackhole blackhole) {
     
         for (List<Edge>[] graph: graphs) {
             
@@ -114,6 +116,24 @@ public class DijkstraBenchmark {
             blackhole.consume(result);
             //obs: o blackhole é o objeto que usamos para impedir que
             //o compilador otimize o código e elimine partes dele
+        }
+         metricas.decreaseKeys = ContadorDeOperacoes.getDecreaseKeyCount();
+    }
+
+    // ----------------------------------------------------
+    // < CLASSE DO JMH PARA LER O CONTADOR ESTÁTICO >
+    // ----------------------------------------------------
+    @AuxCounters(AuxCounters.Type.EVENTS)
+    @State(Scope.Thread)
+    public static class Metricas {
+        // Esta variável vai virar a coluna "decreaseKeys" no seu CSV
+        public long decreaseKeys;
+
+        @Setup(Level.Invocation)
+        public void prepararParaNovaRodada() {
+            decreaseKeys = 0;
+            // Zera o seu contador global ANTES de cada medição do JMH
+            ContadorDeOperacoes.reset();
         }
     }
 }
