@@ -61,7 +61,7 @@ public class FibonacciHeap implements MyPriorityQueue {
                 child = child.sibling;
             }
 
-            if(head != null) {
+            if(head != null && lastChild != null) {
                 lastChild.sibling = head;
                 head.prevSibling = lastChild;
             }
@@ -69,7 +69,7 @@ public class FibonacciHeap implements MyPriorityQueue {
             head = min.child;
         }
         head = consolidate();
-        if(minRoot == min) recalculateMin();
+        recalculateMin();
         return min.vertex;
     }
 
@@ -107,26 +107,16 @@ public class FibonacciHeap implements MyPriorityQueue {
      */
     private FibonacciNode removeSmallestRoot() {
         if(head == null) return null;
-        FibonacciNode cur = head.sibling;
-        FibonacciNode prev = head;
-        FibonacciNode min = head;
-        FibonacciNode prevMin = null;
+        FibonacciNode min = minRoot;
 
-        while(cur != null) {
-            if(cur.priority < min.priority) {
-                min = cur;
-                prevMin = prev;
-            }
-            prev = cur;
-            cur = cur.sibling;
+        if(min.prevSibling != null) {
+            min.prevSibling.sibling = min.sibling;
+        } else {
+            head = min.sibling;
         }
 
-        if(prevMin == null) {
-            head = head.sibling;
-            if(head != null) head.prevSibling = null;
-        } else {
-            prevMin.sibling = min.sibling;
-            if(min.sibling != null) min.sibling.prevSibling = prevMin;
+        if(min.sibling != null) {
+            min.sibling.prevSibling = min.prevSibling;
         }
 
         min.sibling = null;
