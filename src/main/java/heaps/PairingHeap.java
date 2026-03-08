@@ -44,6 +44,7 @@ public class PairingHeap implements MyPriorityQueue {
 
     @Override
     public void decreaseKey(int vertex, int newPriority) {
+        ContadorDeOperacoes.incrementaDecreaseKey();
         HeapNode node = nodes[vertex];
 
         if (node == null || node.priority <= newPriority) return;

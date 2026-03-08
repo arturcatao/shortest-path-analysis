@@ -3,6 +3,7 @@ package benchmarks;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openjdk.jmh.annotations.AuxCounters;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -21,6 +22,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import algorithms.DijkstraAlgorithmLista;
 import algorithms.Edge;
 import heaps.BinaryHeap;
+import heaps.ContadorDeOperacoes;
 import heaps.FibonacciHeap;
 import heaps.MyPriorityQueue;
 import heaps.PairingHeap;
@@ -37,8 +39,8 @@ import heaps.PairingHeap;
 // 5. depois, ele mede 5 vezes
 // 6. o benchmark roda em uma JVM separada.
 
-@State(Scope.Thread) 
-@BenchmarkMode(Mode.AverageTime) 
+@State(Scope.Thread)
+@BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Warmup(iterations = 3)
 @Timeout(time = 10, timeUnit = TimeUnit.MINUTES)
@@ -46,42 +48,56 @@ import heaps.PairingHeap;
 @Fork(1)
 
 public class DijkstraBenchmark {
-    
+
+    // ----------------------------------------------------
+    // < CLASSE DO JMH PARA LER O SEU CONTADOR ESTÁTICO >
+    // ----------------------------------------------------
+    @AuxCounters(AuxCounters.Type.EVENTS)
+    @State(Scope.Thread)
+    public static class Metricas {
+        // Esta variável vai virar a coluna "decreaseKeys" no seu CSV
+        public long decreaseKeys;
+
+        @Setup(Level.Invocation)
+        public void prepararParaNovaRodada() {
+            decreaseKeys = 0;
+            // Zera o seu contador global ANTES de cada medição do JMH
+            ContadorDeOperacoes.reset();
+        }
+    }
+
     // ---------------------------
-    //< PARÂMETROS DO EXPERIMENTO >
+    // < PARÂMETROS DO EXPERIMENTO >
     // ---------------------------
 
-    // Tipo de grafo
-    @Param({"MEDIUM", "SPARSE", "DENSE"}) // "DENSE"
+    @Param({ "DENSE" })
     private String graphType;
-
-    // Número de vértices
-    @Param({"100", "500", "1000", "1500"}) //, "1000", "5000", "10000"})
+    @Param({ "500", "1000", "1500", "2000", "2500"})
     private int size;
-    
+
     /**
-    // Amostra do grafo (ID no CSV)
-    @Param({
-            "1","2","3","4","5","6","7","8","9","10"
-            // podemos expandir
-    })
-    private int sample;
-    */
+     * // Amostra do grafo (ID no CSV)
+     * @Param({
+     * "1","2","3","4","5","6","7","8","9","10"
+     * // podemos expandir
+     * })
+     * private int sample;
+     */
 
     // Tipo de heap
-    @Param({"PAIRING", "BINARY", "FIBONACCI"})
+    @Param({ "PAIRING", "BINARY", "FIBONACCI" })
     private String heapType;
 
-    //---------------------
-    //< VARIÁVEIS INTERNAS >
-    //---------------------
- 
-    private List<List<Edge>[]> graphs;
-    //private List<Edge>[] graph;
+    // ---------------------
+    // < VARIÁVEIS INTERNAS >
+    // ---------------------
 
-    //-----------------------------------------
+    private List<List<Edge>[]> graphs;
+    // private List<Edge>[] graph;
+
+    // -----------------------------------------
     // SETUP (executa 1 vez por rodada de teste)
-    //-----------------------------------------
+    // -----------------------------------------
 
     @Setup(Level.Trial)
     public void setup() {
@@ -105,20 +121,20 @@ public class DijkstraBenchmark {
                 throw new IllegalArgumentException("Tipo de grafo inválido");
         }
 
-        //graph = CsvGraphReader.readGraph(path, size, sample);
+        // graph = CsvGraphReader.readGraph(path, size, sample);
         graphs = CsvGraphReader.readAllGraphsOfSize(path, size);
 
     }
 
-    //----------
+    // ----------
     // BENCHMARK
-    //----------
+    // ----------
 
     @Benchmark
-    public void runDijkstra(Blackhole blackhole) {
-    
-        for (List<Edge>[] graph: graphs) {
-            
+    public void runDijkstra(Metricas metricas, Blackhole blackhole) {
+
+        for (List<Edge>[] graph : graphs) {
+
             MyPriorityQueue pq;
 
             switch (heapType) {
@@ -138,12 +154,12 @@ public class DijkstraBenchmark {
                     throw new IllegalArgumentException("Heap inválida");
             }
 
-            int[] result =
-                DijkstraAlgorithmLista.dijkstraUniversal(graph, 0, pq);
+            int[] result = DijkstraAlgorithmLista.dijkstraUniversal(graph, 0, pq);
 
             blackhole.consume(result);
-            //obs: o blackhole é o objeto que usamos para impedir que
-            //o compilador otimize o código e elimine partes dele
+            // obs: o blackhole é o objeto que usamos para impedir que
+            // o compilador otimize o código e elimine partes dele
         }
+        metricas.decreaseKeys = ContadorDeOperacoes.getDecreaseKeyCount();
     }
 }

@@ -80,6 +80,7 @@ public class FibonacciHeap implements MyPriorityQueue {
      */
     @Override
     public void decreaseKey(int vertex, int newPriority) {
+        ContadorDeOperacoes.incrementaDecreaseKey();
         FibonacciNode node = nodeMap.get(vertex);
         if(node == null || newPriority >= node.priority) return;
 

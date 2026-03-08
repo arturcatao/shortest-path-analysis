@@ -38,9 +38,9 @@ All rights reserved.
         <!-- Versão do JMH -->
         <jmh.version>1.37</jmh.version>
 
-        <!-- ALTERAÇÃO MÍNIMA: Java 21 -->
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <!-- ALTERAÇÃO MÍNIMA: Java 17 -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
         <uberjar.name>benchmarks</uberjar.name>
     </properties>
