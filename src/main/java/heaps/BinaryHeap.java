@@ -22,9 +22,8 @@ public class BinaryHeap implements MyPriorityQueue {
     public void insert(int vertex, int priority) {
         minHeap[size] = vertex;
         prioridade[vertex] = priority;
-        posicao[vertex] = size - 1;
+        posicao[vertex] = size; 
         size++;
-
         heapifyUp(size - 1);
     }
 
@@ -41,6 +40,7 @@ public class BinaryHeap implements MyPriorityQueue {
 
     @Override
     public void decreaseKey(int vertex, int newPriority) {
+        if (newPriority >= prioridade[vertex]) return; 
         ContadorDeOperacoes.incrementaDecreaseKey();
         prioridade[vertex] = newPriority;
         heapifyUp(posicao[vertex]);
@@ -53,6 +53,7 @@ public class BinaryHeap implements MyPriorityQueue {
             int parent = (i - 1) / 2;
             if (prioridade[minHeap[parent]] > prioridade[minHeap[i]]) {
                 swap(i, parent);
+                i = parent; 
             } else {
                 break;
             }

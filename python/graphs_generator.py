@@ -5,9 +5,9 @@ CAMINHO = "experiments/data/"
 def main():
     
 
-    tamanhos =  [100, 500, 1000, 2000, 5000]
+    tamanhos =  [100, 500, 1000]
     densidades = [0.1, 0.3, 0.5, 0.7, 0.9]
-    AMOSTRAS = 50 #100
+    AMOSTRAS = 100
 
     graph_id = 0
     for num_vertices in tamanhos:
