@@ -57,7 +57,7 @@ public class DijkstraBenchmark {
     private int density;
     
     // Número de vértices
-    @Param({"100", "500", "1000", "2000", "5000"}) 
+    @Param({"100", "500", "1000"})
     private int size;
     
     // Tipo de heap

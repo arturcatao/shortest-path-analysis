@@ -7,7 +7,7 @@ def main():
 
     tamanhos =  [100, 500, 1000]
     densidades = [0.1, 0.3, 0.5, 0.7, 0.9]
-    AMOSTRAS = 100
+    AMOSTRAS = 50
 
     graph_id = 0
     for num_vertices in tamanhos:
