@@ -42,7 +42,7 @@ import heaps.PairingHeap;
 @State(Scope.Thread) 
 @BenchmarkMode(Mode.AverageTime) 
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations = 3)
+@Warmup(iterations = 2)
 @Timeout(time = 30, timeUnit = TimeUnit.MINUTES)
 @Measurement(iterations = 5)
 @Fork(1)
@@ -57,7 +57,7 @@ public class DijkstraBenchmark {
     private int density;
     
     // Número de vértices
-    @Param({"100", "500", "1000"})
+    @Param({"100", "500", "1000", "1500"})
     private int size;
     
     // Tipo de heap

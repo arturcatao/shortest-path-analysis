@@ -5,7 +5,7 @@ CAMINHO = "experiments/data/"
 def main():
     
 
-    tamanhos =  [100, 500, 1000]
+    tamanhos =  [100, 500, 1000, 1500]
     densidades = [0.1, 0.3, 0.5, 0.7, 0.9]
     AMOSTRAS = 50
 
