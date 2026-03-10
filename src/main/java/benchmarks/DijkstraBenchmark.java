@@ -40,9 +40,9 @@ import heaps.PairingHeap;
 @State(Scope.Thread) 
 @BenchmarkMode(Mode.AverageTime) 
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations = 3)
-@Timeout(time = 30, timeUnit = TimeUnit.MINUTES)
-@Measurement(iterations = 5)
+@Warmup(iterations = 1)
+@Timeout(time = 60, timeUnit = TimeUnit.MINUTES)
+@Measurement(iterations = 3)
 @Fork(1)
 
 public class DijkstraBenchmark {
