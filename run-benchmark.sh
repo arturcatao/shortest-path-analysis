@@ -11,7 +11,7 @@ java -jar target/benchmarks.jar \
 -rf csv \
 -rff temp.csv \
 -prof gc \
--jvmArgs "-Xmx12g"
+-jvmArgs "-Xmx20g"
 echo "Salvando os resultados..."
 mkdir -p experiments/results
 if [ -f experiments/results/dijkstra_results.csv ]; then 
