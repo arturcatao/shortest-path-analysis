@@ -43,7 +43,7 @@ import heaps.PairingHeap;
 @BenchmarkMode(Mode.AverageTime) 
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Warmup(iterations = 3)
-@Timeout(time = 10, timeUnit = TimeUnit.MINUTES)
+@Timeout(time = 30, timeUnit = TimeUnit.MINUTES)
 @Measurement(iterations = 5)
 @Fork(1)
 
