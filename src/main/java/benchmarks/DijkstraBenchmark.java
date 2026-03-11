@@ -41,11 +41,7 @@ import heaps.PairingHeap;
 @BenchmarkMode(Mode.AverageTime) 
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Warmup(iterations = 2)
-<<<<<<< HEAD
-@Timeout(time = 30, timeUnit = TimeUnit.MINUTES)
-=======
 @Timeout(time = 60, timeUnit = TimeUnit.MINUTES)
->>>>>>> Experiments
 @Measurement(iterations = 5)
 @Fork(1)
 
@@ -55,7 +51,7 @@ public class DijkstraBenchmark {
     //< PARÂMETROS DO EXPERIMENTO >
     // ---------------------------
     
-    @Param({"10", "30", "70", "90"})
+    @Param({"10", "30","50", "70", "90"})
     private int density;
     
     // Número de vértices
