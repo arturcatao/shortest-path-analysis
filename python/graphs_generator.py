@@ -6,7 +6,7 @@ def main():
     
 
     tamanhos =  [100, 500, 1000]
-    densidades = [0.1, 0.3, 0.5, 0.7, 0.9]
+    densidades = [0.95, 0.98, 0.99]
     AMOSTRAS = 50
 
     graph_id = 0

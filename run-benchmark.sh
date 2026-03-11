@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 set -e # interrompe caso tenha erro
 # Gerar os grafos
-#echo "Gerando grafos..."
-#python3 python/graphs_generator.py
+echo "Gerando grafos..."
+python3 python/graphs_generator.py
 echo "Compilando projeto..."
 mvn clean package
 # Executa o benchmark com medição de memória
