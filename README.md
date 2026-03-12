@@ -53,7 +53,26 @@ Escreva aqui.
 
 ## Metodologia
 
-Escreva aqui.
+A pesquisa adotou uma abordagem experimental controlada, seguindo esses passos:
+
+Primeiro Passo: Implementação das estruturas e adaptações do algoritmo de Dijkstra
+
+        Foram implementadas diferentes estruturas de prioridade, Binary Heap, Fibonacci Heap e Pairing Heap, utilizando da interface MyPriorityQueue para formar o contrato dos métodos “Insert”, “decreaseKey” e “extractMin”. As estruturas foram modificadas, para garantir que elas pudessem ser utilizadas corretamente na análise, utilizando as mesmas entradas.
+        Após a implementação dessas estruturas de dados, elas foram utilizadas no algoritmo de Dijkstra, adaptando-o para receber cada estrutura devidamente. Essa abordagem permite que a lógica do algoritmo permaneça inalterada e garante que as diferenças no experimento sejam apenas ligadas às diferenças estruturais e operacionais de cada variação. 
+
+Segundo Passo:  Geração de entradas
+
+        Foram geradas as entradas, através de um script na linguagem de programação Python, para a criação de grafos usando diferentes perfis estruturais, como grafos esparsos e grafos densos.
+        Densidades: 10%, 30%, 50%, 70%, 90%
+        Tamanhos: 100, 500, 1.000, 1.500 vértices
+
+	Os pesos das arestas foram gerados aleatoriamente e os grafos são garantidamente conectados, para assegurar que haja caminhos possíveis para qualquer par de vértices. 
+
+
+Terceiro Passo: configuração do ambiente de testes e análise dos resultados
+	
+	Os testes foram realizados por meio de um Benchmark, utilizando a biblioteca JMH (Java Microbenchmark Harness), que mediu o tempo médio para a execução do algoritmo de Dijkstra, variando o tamanho, densidade e tipo de estrutura implementada. Para garantir resultados mais precisos, o Java executou cada configuração três vezes, como aquecimento, seguidos de cinco execuções em uma JVM separada. Os resultados foram processados e apresentados em gráficos comparativos, que foram gerados pela biblioteca matplotlib, do Python. Nos parâmetros utilizados nesse experimento, foi utilizado 1 fork onde são realizadas 3 execuções de aquecimento seguidas de 5 ciclos de medição, com o tempo contado em milissegundos. As variáveis testadas foram o tipo de grafo (esparso, médio e denso), o tamanho (100, 500, 1.000 e 1.500 vértices) e o tipo de heap (Binary, Fibonacci e Pairing).
+
 
 ## Hipotese Teórica
 
@@ -61,7 +80,16 @@ Escreva aqui.
 
 ## Análise dos resultados
 
-Escreva aqui.
+Contagem de DecreaseKeys:
+
+No cenário do algoritmo de Dijkstra para diferentes filas de prioridade, a contagem de operações de decreaseKeys torna-se importante para garantir que o experimento é justo, no caso, são usados os mesmos grafos para testar o algoritmo com os três tipos de Heap. Além disso, o fato da contagem ser a mesma para as três significa que o Dijkstra encontrou o mesmo caminho em todos os casos, ou seja, o que vai diferenciar os resultados é o custo interno do método, que é seguido pelo contrato formado na interface MyPriorityQueue.
+
+![contador para 1000 vertices](static/DecreaseKey/chart_decrease_keys_1000.png)
+
+Como apresentado no gráfico acima, as três estruturas apresentaram contagens praticamente idênticas para um mesmo grafo, confirmando a hipótese 4. Observa-se também que o número de chamadas ao decreaseKey cresce proporcionalmente à densidade do grafo, pois grafos mais densos possuem mais arestas e, consequentemente, mais oportunidades de encontrar caminhos melhores durante a execução do algoritmo.
+Em casos pontuais, pode haver uma diferença mínima na contagem, em decorrência das diferentes formas como cada estrutura trata os vértices processados, mas isso não tem impacto significativo nos resultados.
+
+![contador para 100 vertices](static/DecreaseKey/chart_decrease_keys_100.png)
 
 ## Ameaças à validade
 
