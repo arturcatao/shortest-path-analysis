@@ -27,11 +27,9 @@ estrutura de dados a ser utilizada baseado no grafo utilizado.
 
 ## Objetivo
 
-            O principal objetivo do projeto é aproximar teoria e
-            prática na análise de algoritmos, mostrando que o
-            desempenho real de uma solução pode variar de acordo
-            com as estruturas de dados utilizadas e as
-            características do problema.
+        Estudar e analisar o comportamento das diferentes estruturas de dados na fila de prioridade do Dijkstra, 
+        e verificar se o seu comportamento assintótico segue na prática quando testado com diferentes tipos de grafos.
+
 
 ## Rodar os experimentos:
 
