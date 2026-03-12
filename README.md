@@ -47,9 +47,6 @@ Consequentemente, a complexidade do algoritmo de Dijkstra varia de acordo com a 
 ```
 ./run-benchmark.sh
 ```
-## Contextualização
-
-Escreva aqui.
 
 ## Metodologia
 
@@ -62,18 +59,18 @@ Após a implementação dessas estruturas de dados, elas foram utilizadas no alg
 
 **Segundo Passo:  Geração de entradas**
 
- Foram geradas as entradas, através de um script na linguagem de programação Python, para a criação de grafos usando diferentes perfis estruturais, como grafos esparsos e grafos densos.
+Foram geradas as entradas, através de um script na linguagem de programação Python, para a criação de grafos usando diferentes perfis estruturais, como grafos esparsos e grafos densos.
 
- Densidades: 10%, 30%, 50%, 70%, 90%
+Densidades: 10%, 30%, 50%, 70%, 90%, 95%, 98%, 99%
 
- Tamanhos: 100, 500, 1.000, 1.500 vértices
+Tamanhos: 100, 500, 1.000, 1.500 vértices
 
 Os pesos das arestas foram gerados aleatoriamente e os grafos são garantidamente conectados, para assegurar que haja caminhos possíveis para qualquer par de vértices. 
 
 
 **Terceiro Passo: configuração do ambiente de testes e análise dos resultados**
 	
-Os testes foram realizados por meio de um Benchmark, utilizando a biblioteca JMH (Java Microbenchmark Harness), que mediu o tempo médio para a execução do algoritmo de Dijkstra, variando o tamanho, densidade e tipo de estrutura implementada. Para garantir resultados mais precisos, o Java executou cada configuração três vezes, como aquecimento, seguidos de cinco execuções em uma JVM separada. Os resultados foram processados e apresentados em gráficos comparativos, que foram gerados pela biblioteca matplotlib, do Python. Nos parâmetros utilizados nesse experimento, foi utilizado 1 fork onde são realizadas 3 execuções de aquecimento seguidas de 5 ciclos de medição, com o tempo contado em milissegundos. As variáveis testadas foram o tipo de grafo (esparso, médio e denso), o tamanho (100, 500, 1.000 e 1.500 vértices) e o tipo de heap (Binary, Fibonacci e Pairing).
+Os testes foram realizados por meio de um Benchmark, utilizando a biblioteca JMH (Java Microbenchmark Harness), que mediu o tempo médio para a execução do algoritmo de Dijkstra, variando o tamanho, densidade e tipo de estrutura implementada. Para garantir resultados mais precisos, o Java executou cada configuração três vezes, como aquecimento, seguidos de cinco execuções em uma JVM separada. Os resultados foram processados e apresentados em gráficos comparativos, que foram gerados pela biblioteca matplotlib, do Python. Nos parâmetros utilizados nesse experimento, foi utilizado 1 fork onde são realizadas 5 execuções de aquecimento seguidas de 5 ciclos de medição, com o tempo contado em milissegundos. As variáveis testadas foram o tipo de grafo (esparso, médio e denso), o tamanho (100, 500, 1.000 e 1.500 vértices) e o tipo de heap (Binary, Fibonacci e Pairing).
 
 
 ## Hipótese Teórica
@@ -102,8 +99,8 @@ Em casos pontuais, pode haver uma diferença mínima na contagem, em decorrênci
 ![contador para 100 vertices](static/DecreaseKey/chart_decrease_keys_100.png)
 
 
-Tempo de Execução no Dijkstra com Diferentes Densidades
-Essa seção apresenta os resultados quantitativos obtidos nos experimentos organizados por tamanho de grafo. Os gráficos exibem o tempo de execução em ms/op em função da densidade do grafo(%).
+**Tempo de Execução no Dijkstra com Diferentes Densidades.**
+Essa seção apresenta os resultados quantitativos obtidos nos experimentos organizados por tamanho de grafo. Os gráficos exibem o tempo de execução em ms/op em função da densidade do grafo.
 
 **Para Grafos Pequenos (100 vértices):**
 
@@ -115,7 +112,7 @@ Para grafos com 100 vértices, a Binary Heap demonstrou ser superior em todas as
 
 ![tempo para 500 vertices](static/new-Config-2/chart_tempo_500.png)
 
-Na segunda rodada de testes com o grafo de 500 vértices, observa-se uma vantagem clara do Binary Heap em grafos mais esparsos(10% - 30%). Porém, à medida que aumenta-se a densidade podemos ir vendo uma equiparidade dos resultados e até mesmo uma inversão de resultados para o Fibonacci e Pairing Heap, mostrando-se mais eficiente. Observa-se que o Pairing Heap é um pouco mais eficiente devido ao overhead.
+Na segunda rodada de testes com o grafo de 500 vértices, observa-se uma vantagem clara do Binary Heap em grafos mais esparsos(10% - 30%). Porém, à medida que a densidade é aumentada, podemos ir vendo uma equiparidade dos resultados e até mesmo uma inversão de resultados para o Fibonacci e Pairing Heap, mostrando-se mais eficiente. Observa-se que o Pairing Heap é um pouco mais eficiente devido ao overhead.
 
 ![tempo para 1000 vertices](static/95-99-1000/chart_tempo_1000.png)
 
@@ -125,7 +122,7 @@ Para uma nova rodada de teste com 1000 vértices, torna-se interessante verifica
 
 ![tempo para 1500 vertices](static/new-Config-2/chart_tempo_1500.png)
 
-Para grafos com 1500 vértices, o Binary Heap se mostrou levemente eficiente para densidades menores (entre 10 e 50%). A partir de 50%, a eficiência do Binary Heap deveria ser superada pela das outras Heaps, porém, porém, o overhead de alocação de Nodes nessas estruturas acaba acionando o garbage collector mais vezes.
+Para grafos com 1500 vértices, o Binary Heap se mostrou levemente eficiente para densidades menores (entre 10% e 50%). A partir de 50%, a eficiência do Binary Heap deveria ser superada pela das outras Heaps, porém, porém, o overhead de alocação de Nodes nessas estruturas acaba acionando o garbage collector mais vezes.
 Nos gráficos abaixo, a diferença de tempo é explicada, pois a rodagem do Binary Heap não tem mais acionamentos de GC para grafos com 30% de densidade ou mais, enquanto os outros dois continuam tendo acionamentos e, apesar do acionamento diminuir para o Fibonacci e o Pairing, a densidade faz a operação durar mais, dando mais tempo para que o GC agir. 
 
 ![gc count](static/new-Config-2/chart_gc_count_1500.png)
@@ -135,7 +132,7 @@ Nos gráficos abaixo, a diferença de tempo é explicada, pois a rodagem do Bina
 
 ## Ameaças à validade
 
-1. Fatores de Hardware e Cache: Os experimentos realizados com 1500 vértices e extremamentes densos apresentaram dados incompletos (timeout), limitando a comparabilidade nessas escalas.
+1. Fatores de Hardware e Cache: Os experimentos realizados com 5000 vértices e extremamentes densos apresentaram dados incompletos (timeout), limitando a comparabilidade nessas escalas.
 
 2. Tipos de Grafos: Os experimentos foram realizados com um único tipo de grafo (aleatório com densidade uniforme). Grafos com estruturas específicas - como grafos de grade, scale-free ou grafos de redes - podem apresentar comportamentos distintos.
 
