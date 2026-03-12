@@ -38,6 +38,10 @@ Escreva aqui.
 
 Escreva aqui.
 
+## Hipoteses
+
+Escreva aqui.
+
 ## Análise dos resultados
 
 Escreva aqui.
