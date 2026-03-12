@@ -19,13 +19,6 @@ Escreva aqui.
             com as estruturas de dados utilizadas e as
             características do problema.
 
-            ---
-
-            *(Este README será atualizado ao longo do
-            desenvolvimento do projeto, incluindo instruções de
-            execução, descrição dos experimentos e resultados
-            obtidos.)*
-
 ## Rodar os experimentos:
 
 ./run-benchmark.sh
