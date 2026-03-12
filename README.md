@@ -5,7 +5,7 @@ Algoritmos** do curso de **Ciência da Computação da UFCG**.
 
 ## Introdução
 
-    O algoritmo de Dijkstra é um dos algoritmos mais conhecidos na
+O algoritmo de Dijkstra é um dos algoritmos mais conhecidos na
 abordagem de algoritmos de menor caminho para grafos com pesos
 não negativos, sendo utilizado em sistemas de GPS, roteamento de
 dados e muitas outras utilizações que necessitam de otimização de
@@ -13,7 +13,8 @@ distâncias. Pensando nisso, decidimos mudar a estrutura de dados
 utilizada na fila de prioridade para analisarmos os diferentes
 comportamentos que o algoritmo apresenta, através de uma análise
 experimental controlada.
-    A nossa experimentação utilizou 3 estruturas de Heap diferentes
+    
+A nossa experimentação utilizou 3 estruturas de Heap diferentes
 para a fila de prioridade do algoritmo, sendo elas: Binary Heap,
 Fibonacci Heap e o Pairing Heap, na qual utilizamos diferentes
 tipos de grafos como entrada, com tamanhos variados de 100 a 1500
