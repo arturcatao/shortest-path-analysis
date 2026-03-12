@@ -57,21 +57,23 @@ A pesquisa adotou uma abordagem experimental controlada, seguindo esses passos:
 
 **Primeiro Passo: Implementação das estruturas e adaptações do algoritmo de Dijkstra**
 
-        Foram implementadas diferentes estruturas de prioridade, Binary Heap, Fibonacci Heap e Pairing Heap, utilizando da interface MyPriorityQueue para formar o contrato dos métodos “Insert”, “decreaseKey” e “extractMin”. As estruturas foram modificadas, para garantir que elas pudessem ser utilizadas corretamente na análise, utilizando as mesmas entradas.
-        Após a implementação dessas estruturas de dados, elas foram utilizadas no algoritmo de Dijkstra, adaptando-o para receber cada estrutura devidamente. Essa abordagem permite que a lógica do algoritmo permaneça inalterada e garante que as diferenças no experimento sejam apenas ligadas às diferenças estruturais e operacionais de cada variação. 
+Foram implementadas diferentes estruturas de prioridade, Binary Heap, Fibonacci Heap e Pairing Heap, utilizando da interface MyPriorityQueue para formar o contrato dos métodos “Insert”, “decreaseKey” e “extractMin”. As estruturas foram modificadas, para garantir que elas pudessem ser utilizadas corretamente na análise, utilizando as mesmas entradas.
+Após a implementação dessas estruturas de dados, elas foram utilizadas no algoritmo de Dijkstra, adaptando-o para receber cada estrutura devidamente. Essa abordagem permite que a lógica do algoritmo permaneça inalterada e garante que as diferenças no experimento sejam apenas ligadas às diferenças estruturais e operacionais de cada variação. 
 
 **Segundo Passo:  Geração de entradas**
 
-        Foram geradas as entradas, através de um script na linguagem de programação Python, para a criação de grafos usando diferentes perfis estruturais, como grafos esparsos e grafos densos.
-        Densidades: 10%, 30%, 50%, 70%, 90%
-        Tamanhos: 100, 500, 1.000, 1.500 vértices
+ Foram geradas as entradas, através de um script na linguagem de programação Python, para a criação de grafos usando diferentes perfis estruturais, como grafos esparsos e grafos densos.
 
-	Os pesos das arestas foram gerados aleatoriamente e os grafos são garantidamente conectados, para assegurar que haja caminhos possíveis para qualquer par de vértices. 
+ Densidades: 10%, 30%, 50%, 70%, 90%
+
+ Tamanhos: 100, 500, 1.000, 1.500 vértices
+
+Os pesos das arestas foram gerados aleatoriamente e os grafos são garantidamente conectados, para assegurar que haja caminhos possíveis para qualquer par de vértices. 
 
 
 **Terceiro Passo: configuração do ambiente de testes e análise dos resultados**
 	
-	Os testes foram realizados por meio de um Benchmark, utilizando a biblioteca JMH (Java Microbenchmark Harness), que mediu o tempo médio para a execução do algoritmo de Dijkstra, variando o tamanho, densidade e tipo de estrutura implementada. Para garantir resultados mais precisos, o Java executou cada configuração três vezes, como aquecimento, seguidos de cinco execuções em uma JVM separada. Os resultados foram processados e apresentados em gráficos comparativos, que foram gerados pela biblioteca matplotlib, do Python. Nos parâmetros utilizados nesse experimento, foi utilizado 1 fork onde são realizadas 3 execuções de aquecimento seguidas de 5 ciclos de medição, com o tempo contado em milissegundos. As variáveis testadas foram o tipo de grafo (esparso, médio e denso), o tamanho (100, 500, 1.000 e 1.500 vértices) e o tipo de heap (Binary, Fibonacci e Pairing).
+Os testes foram realizados por meio de um Benchmark, utilizando a biblioteca JMH (Java Microbenchmark Harness), que mediu o tempo médio para a execução do algoritmo de Dijkstra, variando o tamanho, densidade e tipo de estrutura implementada. Para garantir resultados mais precisos, o Java executou cada configuração três vezes, como aquecimento, seguidos de cinco execuções em uma JVM separada. Os resultados foram processados e apresentados em gráficos comparativos, que foram gerados pela biblioteca matplotlib, do Python. Nos parâmetros utilizados nesse experimento, foi utilizado 1 fork onde são realizadas 3 execuções de aquecimento seguidas de 5 ciclos de medição, com o tempo contado em milissegundos. As variáveis testadas foram o tipo de grafo (esparso, médio e denso), o tamanho (100, 500, 1.000 e 1.500 vértices) e o tipo de heap (Binary, Fibonacci e Pairing).
 
 
 ## Hipótese Teórica
