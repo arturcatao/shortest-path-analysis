@@ -5,8 +5,8 @@ CAMINHO = "experiments/data/"
 def main():
     
 
-    tamanhos =   [1500] #[100, 500, 1000]
-    densidades = [0.95, 0.98, 0.99]  #[0.1, 0.3, 0.5, 0.7, 0.9]
+    tamanhos = [100, 500, 1000, 1500]
+    densidades = [0.1, 0.3, 0.5, 0.7, 0.9]
     AMOSTRAS = 50
 
     graph_id = 0

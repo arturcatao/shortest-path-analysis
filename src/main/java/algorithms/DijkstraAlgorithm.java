@@ -1,6 +1,7 @@
 package algorithms;
-import heaps.MyPriorityQueue;
 import java.util.Arrays;
+
+import heaps.MyPriorityQueue;
 
 /**
  * Dijkstra's algorithm for finding the shortest path from a single source vertex to all other vertices in a graph.
@@ -47,8 +48,6 @@ public class DijkstraAlgorithm {
             pq.insert(i, distances[i]);
         }
 
-        //insere o vértice inicial na fila
-        //pq.insert(source, 0);
 
         while (!pq.isEmpty()) {
             
@@ -75,31 +74,9 @@ public class DijkstraAlgorithm {
             }
         }
         
-        //printDistances(distances);
         return distances;
     }
 
-    /**
-     * Finds the vertex with the minimum distance value from the set of vertices that have not yet been processed.
-     *
-     * @param distances The array of current shortest distances from the source vertex.
-     * @param processed The array indicating whether each vertex has been processed.
-     * @return The index of the vertex with the minimum distance value.
-     *
-    private int getMinDistanceVertex(int[] distances, boolean[] processed) {
-        int min = Integer.MAX_VALUE;
-        int minIndex = -1;
-
-        for (int v = 0; v < vertexCount; v++) {
-            if (!processed[v] && distances[v] <= min) {
-                min = distances[v];
-                minIndex = v;
-            }
-        }
-
-        return minIndex;
-    }
-    */
 
     /**
      * Prints the shortest distances from the source vertex to all other vertices.

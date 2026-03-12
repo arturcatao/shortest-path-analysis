@@ -51,11 +51,11 @@ public class DijkstraBenchmark {
     //< PARÂMETROS DO EXPERIMENTO >
     // ---------------------------
     
-    @Param({"95", "98", "99"}) //({"10", "30", "50", "70", "90"})
+    @Param({"10", "30", "50", "70", "90"})
     private int density;
     
     // Número de vértices
-    @Param({"1500"}) //({"100", "500", "1000"})
+    @Param({"100", "500", "1000", "1500"})
     private int size;
     
     // Tipo de heap

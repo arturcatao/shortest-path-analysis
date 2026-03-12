@@ -10,8 +10,6 @@ import java.util.Map;
 
 import algorithms.Edge;
 
-// Esse graph reader ainda não é o oficial!
-
 public class CsvGraphReader {
 
     @SuppressWarnings("unchecked")
