@@ -23,7 +23,7 @@ Escreva aqui.
 
 ./run-benchmark.sh
 
-## Resumo dos Heaps
+## Contextualização
 
 Escreva aqui.
 
@@ -38,3 +38,10 @@ Escreva aqui.
 ## Análise dos resultados
 
 Escreva aqui.
+
+## Ameaças à validade
+
+## Conclusão
+
+## Referências
+
