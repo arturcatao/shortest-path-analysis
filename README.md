@@ -27,8 +27,9 @@ estrutura de dados a ser utilizada baseado no grafo utilizado.
 
 ## Objetivo
 
-        Estudar e analisar o comportamento das diferentes estruturas de dados na fila de prioridade do Dijkstra, 
-        e verificar se o seu comportamento assintótico segue na prática quando testado com diferentes tipos de grafos.
+        Estudar e analisar o comportamento das diferentes estruturas de dados na 
+        fila de prioridade do Dijkstra, e verificar se o seu comportamento assintótico 
+        segue na prática quando testado com diferentes tipos de grafos.
 
 
 ## Rodar os experimentos:
