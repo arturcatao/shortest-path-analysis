@@ -1,92 +1,108 @@
 package algorithms;
+
 import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
 
 import heaps.MyPriorityQueue;
 
-/**
- * Dijkstra's algorithm for finding the shortest path from a single source vertex to all other vertices in a graph.
- */
 public class DijkstraAlgorithm {
 
-    private final int vertexCount;
+    // Dijkstra Universal(Com a classe Edge funciona para tudo) Ela so auxilia
+    public static int[] dijkstraUniversal(List<Edge>[] graph, int source, MyPriorityQueue pq) {
+        int n = graph.length;
 
-    /**
-     * Constructs a Dijkstra object with the given number of vertices.
-     *
-     * @param vertexCount The number of vertices in the graph.
-     */
-    public DijkstraAlgorithm(int vertexCount) {
-        this.vertexCount = vertexCount;
-    }
+        int[] dist = new int[n];
+        boolean[] visited = new boolean[n];
 
-    /**
-     * Executes Dijkstra's algorithm on the provided graph to find the shortest paths from the source vertex to all other vertices.
-     *
-     * The graph is represented as an adjacency matrix where {@code graph[i][j]} represents the weight of the edge from vertex {@code i}
-     * to vertex {@code j}. A value of 0 indicates no edge exists between the vertices.
-     *
-     * @param graph The graph represented as an adjacency matrix.
-     * @param source The source vertex.
-     * @return An array where the value at each index {@code i} represents the shortest distance from the source vertex to vertex {@code i}.
-     * @throws IllegalArgumentException if the source vertex is out of range.
-     */
-    public int[] run(int[][] graph, int source, MyPriorityQueue pq) {
-        if (source < 0 || source >= vertexCount) {
-            throw new IllegalArgumentException("Incorrect source");
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[source] = 0;
+
+        for (int i = 0; i < n; i++) {
+            pq.insert(i, dist[i]);
         }
-
-        int[] distances = new int[vertexCount];
-        boolean[] processed = new boolean[vertexCount];
-
-        Arrays.fill(distances, Integer.MAX_VALUE);
-        Arrays.fill(processed, false);
-
-        distances[source] = 0;
-
-        // Inserir TODOS os vértices na heap no início
-        for (int i = 0; i < vertexCount; i++) {
-            pq.insert(i, distances[i]);
-        }
-
 
         while (!pq.isEmpty()) {
-            
             int u = pq.extractMin();
 
-            if (processed[u]) continue;
+            if (u == -1)
+                break;
+            if (visited[u])
+                continue;
 
-            processed[u] = true;
+            visited[u] = true;
 
-            for (int v = 0; v < vertexCount; v++) {
-                
-                if (!processed[v] && graph[u][v] != 0 &&
-                distances[u] != Integer.MAX_VALUE) {
+            if (dist[u] == Integer.MAX_VALUE)
+                break;
 
-                    int newDist = distances[u] + graph[u][v];
+            for (Edge e : graph[u]) {
+                int v = e.to;
+                int weight = e.weight;
 
-                    if (newDist < distances[v]) {
-                        distances[v] = newDist;
-
-                        //atualizando prioridade na heap
-                        pq.decreaseKey(v, newDist);
-                    }
+                if (!visited[v] && dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    pq.decreaseKey(v, dist[v]);
                 }
             }
         }
-        
-        return distances;
+
+        return dist;
     }
 
+    // Se nao quer usar a classe Edge
+    public static int[] dijkstra(List<int[]>[] grafo, int S) {
+        int n = grafo.length;
 
-    /**
-     * Prints the shortest distances from the source vertex to all other vertices.
-     *
-     * @param distances The array of shortest distances.
-     */
-    private void printDistances(int[] distances) {
-        System.out.println("Vertex \t Distance");
-        for (int i = 0; i < vertexCount; i++) {
-            System.out.println(i + " \t " + distances[i]);
+        int[] dist = new int[n];
+        boolean[] mark = new boolean[n];
+
+        int INF = Integer.MAX_VALUE / 2;
+        Arrays.fill(dist, INF);
+        dist[S] = 0;
+
+        PriorityQueue<int[]> fila = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+
+        fila.offer(new int[] { 0, S });
+
+        while (!fila.isEmpty()) {
+            int[] topo = fila.poll();
+            int u = topo[1];
+
+            if (mark[u])
+                continue;
+
+            mark[u] = true;
+
+            for (int[] vizinho : grafo[u]) {
+                int v = vizinho[0];
+                int w = vizinho[1];
+
+                if (dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
+
+                    fila.offer(new int[] { dist[v], v });
+                }
+            }
         }
+
+        return dist;
     }
+
+    // Como ler os resultado da classe sem Edge, para ler com Edge na hora de passar o peso e o vertice cria-se o objeto Edge e adiciona na lista
+    /*Exemplo sem Edge
+     * int n = 1000;
+     * List<int[]>[] grafo = new ArrayList[n];
+     * for (int i = 0; i < n; i++) {
+     * grafo[i] = new ArrayList<>();
+     * }
+     * 
+     * // Adicionando uma aresta (exemplo: do vértice 0 para o vértice 5 com peso
+     * 10)
+     * grafo[0].add(new int[]{5, 10});
+     * 
+     * // Adicionando outra aresta (exemplo: do vértice 0 para o vértice 8 com peso
+     * 25)
+     * grafo[0].add(new int[]{8, 25});
+     * 
+     */
 }

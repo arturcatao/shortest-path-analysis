@@ -18,7 +18,7 @@ import org.openjdk.jmh.annotations.Timeout;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 
-import algorithms.DijkstraAlgorithmLista;
+import algorithms.DijkstraAlgorithm;
 import algorithms.Edge;
 import heaps.BinaryHeap;
 import heaps.FibonacciHeap;
@@ -109,7 +109,7 @@ public class DijkstraBenchmark {
             }
 
             int[] result =
-                DijkstraAlgorithmLista.dijkstraUniversal(graph, 0, pq);
+                DijkstraAlgorithm.dijkstraUniversal(graph, 0, pq);
 
             blackhole.consume(result);
             //obs: o blackhole é o objeto que usamos para impedir que
