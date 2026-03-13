@@ -38,9 +38,9 @@ Consequentemente, a complexidade do algoritmo de Dijkstra varia de acordo com a 
 
 ## Objetivo
 
-Estudar e analisar o comportamento das diferentes estruturas de dados na 
-fila de prioridade do Dijkstra, e verificar se o seu comportamento assintótico 
-segue na prática quando testado com diferentes tipos de grafos.
+Estudar e analisar o impacto de diferentes estruturas de dados na 
+fila de prioridade do Dijkstra, e verificar se o seu comportamento assintótico teórico
+se confirma prática quando testado com diferentes tipos de grafos.
 
 ## Como rodar os experimentos
 
@@ -147,7 +147,7 @@ podemos observar uma equiparidade dos resultados e até mesmo uma
 inversão de resultados para o *Fibonacci* e *Pairing Heap*,
 mostrando-se mais eficiente. Observa-se que o *Pairing Heap* é um pouco mais eficiente devido ao *overhead*.
 
-![tempo para 1000 vertices](static/95-99-1000/chart_tempo_1000.png)
+![tempo para 1000 vertices](static/95-99-1000/chart_tempo_1000.png) (static/new-Config2/chart_tempo_1000.png)
 
 Para uma nova rodada de teste com 1000 vértices, o comportamento
 em baixas densidades (10% - 50%) segue o padrão já observado: a
@@ -202,21 +202,7 @@ collector* para grafos com 30% de densidade ou mais, enquanto os outros dois con
 
 ## Conclusão
 
-Este experimento demonstrou empiricamente que a *Binary Heap*,
-estrutura com complexidade assintótica teoricamente inferior à
-*Fibonacci Heap*, supera as demais implementações na grande
-maioria dos cenários práticos testados. A diferença de desempenho
-pode chegar em até 40x para grafos pequenos, e é explicada
-perfeitamente pela melhor localidade de referência da *Binary
-Heap* em relação às estruturas baseadas em ponteiros. 
-Sob outro ponto de vista, percebemos que a *Fibonacci Heap*
-apesar de sua vantagem teórica O(1) amortizado, não apresentou
-superioridade prática em nenhum cenário testado, confirmando a
-literatura que aponta o alto *overhead* dessa estrutura. Por
-outro lado, a *Pairing Heap* se posicionou como uma alternativa a
-*Fibonacci Heap* em questão de desenvolvimento, com a superação
-em diversos cenários, mas ainda assim inferior a *Binary Heap*. 
-Logo, à luz dessas considerações, constata-se que esses resultados reforçam a importância da análise experimental com complemento indispensável à análise assintótica na engenharia de algoritmos. Isso porque, a escolha de uma estrutura de dados deve considerar não apenas a complexidade teórica, mas as características de hardware para cada objetivo almejado dentre os custos de implementação e manutenção. 
+Este experimento demonstrou empiricamente que a Binary Heap, estrutura com complexidade assintótica teoricamente inferior à Fibonacci Heap, supera as demais implementações na grande maioria dos cenários práticos testados. A diferença de desempenho pode chegar a 40x em grafos pequenos, sendo explicada principalmente pela melhor localidade de referência da Binary Heap em relação às estruturas baseadas em ponteiros. Sob outra perspectiva, observou-se que a Fibonacci Heap, apesar de sua vantagem teórica de O(1) amortizado, não apresentou superioridade prática em nenhum dos cenários testados, confirmando a literatura que aponta o alto overhead dessa estrutura. Por outro lado, a Pairing Heap mostrou-se uma alternativa à Fibonacci Heap do ponto de vista de implementação e desempenho, superando-a em diversos cenários, embora ainda se mantenha inferior à Binary Heap. À luz dessas considerações, constata-se que os resultados reforçam a importância da análise experimental como complemento indispensável à análise assintótica na engenharia de algoritmos. Isso ocorre porque a escolha de uma estrutura de dados deve considerar não apenas a complexidade teórica, mas também as características do hardware, além dos custos de implementação e manutenção, de acordo com os objetivos pretendidos.
 
 ## Referências
 
