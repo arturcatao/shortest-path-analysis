@@ -13,8 +13,8 @@ Neste projeto realizamos uma **análise experimental do algoritmo de Dijkstra ut
 
 Uma etapa fundamental do algoritmo de Dijkstra é a utilização de uma **fila de prioridade**, responsável por selecionar o vértice com menor distância estimada. Durante sua execução, duas operações são particularmente importantes:
 
-- **extractMin**: remove o vértice com menor distância.
-- **decreaseKey**: atualiza a distância estimada de um vértice.
+- `extractMin`: remove o vértice com menor distância.
+- `decreaseKey`: atualiza a distância estimada de um vértice.
 
 A eficiência dessas operações depende diretamente da estrutura de dados utilizada para implementar a fila de prioridade. Neste projeto analisamos experimentalmente três estruturas de heap:
 
@@ -38,13 +38,20 @@ Consequentemente, a complexidade do algoritmo de Dijkstra varia de acordo com a 
 
 ## Objetivo
 
-        Estudar e analisar o comportamento das diferentes estruturas de dados na 
-        fila de prioridade do Dijkstra, e verificar se o seu comportamento assintótico 
-        segue na prática quando testado com diferentes tipos de grafos.
+Estudar e analisar o comportamento das diferentes estruturas de dados na 
+fila de prioridade do Dijkstra, e verificar se o seu comportamento assintótico 
+segue na prática quando testado com diferentes tipos de grafos.
 
+## Como rodar os experimentos
 
-## Rodar os experimentos:
-```
+#### Requisitos
+- Java
+- Maven
+- python3
+- 20GB de RAM disponíveis
+
+#### Execução
+```bash
 ./run-benchmark.sh
 ```
 
@@ -70,12 +77,12 @@ Os pesos das arestas foram gerados aleatoriamente e os grafos são garantidament
 
 **Terceiro Passo: configuração do ambiente de testes e análise dos resultados**
 	
-Os testes foram realizados por meio de um Benchmark, utilizando a biblioteca JMH (Java Microbenchmark Harness), que mediu o tempo médio para a execução do algoritmo de Dijkstra, variando o tamanho, densidade e tipo de estrutura implementada. Os resultados foram processados e apresentados em gráficos comparativos, que foram gerados pela biblioteca matplotlib, do Python. Nos parâmetros utilizados nesse experimento, foi utilizado 1 *fork* onde são realizadas 3 execuções de aquecimento seguidas de 5 ciclos de medição, com o tempo contado em milissegundos. As variáveis testadas foram o tipo de grafo (esparso, médio e denso), o tamanho (100, 500, 1.000 e 1.500 vértices) e o tipo de heap (Binary, Fibonacci e Pairing).
+Os testes foram realizados por meio de um Benchmark, utilizando a biblioteca JMH (Java Microbenchmark Harness), que mediu o tempo médio para a execução do algoritmo de Dijkstra, variando o tamanho, densidade e tipo de estrutura implementada. Os resultados foram processados e apresentados em gráficos comparativos, que foram gerados pela biblioteca matplotlib, do Python. Nos parâmetros utilizados neste experimento, foi utilizado 1 *fork* onde são realizadas 3 execuções de aquecimento seguidas de 5 ciclos de medição, com o tempo contado em milissegundos. As variáveis testadas foram o tipo de grafo (esparso, médio e denso), o tamanho (100, 500, 1.000 e 1.500 vértices) e o tipo de heap (Binary, Fibonacci e Pairing).
 
 
 ## Hipótese Teórica
 
-Com bases nas aproximações teóricas que foram expostas a respeito dos diferentes tipos de Heaps e nas características de hardware relevantes, formulamos as seguintes hipóteses:
+Com base nas aproximações teóricas que foram expostas a respeito dos diferentes tipos de Heaps e nas características de hardware relevantes, formulamos as seguintes hipóteses:
 
 1. Vantagem prática da Binary Heap: apesar da complexidade assintótica inferior ao demais Heaps, a Binary Heap apresentará menor tempo de execução na maioria dos cenários, devido a sua melhor localidade de cache.
 
@@ -83,11 +90,11 @@ Com bases nas aproximações teóricas que foram expostas a respeito dos diferen
 
 3. Fibonacci Heap em grafos densos e grandes: A vantagem teórica da Fibonacci Heap se manifestará em grafos com alta densidade e grande número de vértices, onde o número de operações decreaseKey é elevado o suficiente para amortizar o *overhead* constante.
 
-4. Impacto da densidade no número de operações decreaseKeys: É esperado que o número de chamadas da operação cresça conforme a densidade do grafo também aumenta, sendo equivalente para as três estruturas.
+4. Impacto da densidade no número de operações decreaseKeys: É esperado que o número de chamadas da operação cresça conforme a densidade do grafo também aumenta, independente da estrutura de heap utilizada.
 
 ## Análise dos resultados
 
-**Contagem de DecreaseKeys:**
+**Contagem de operações DecreaseKey:**
 
 No cenário do algoritmo de Dijkstra para diferentes filas de prioridade, a contagem de operações de decreaseKeys torna-se importante para garantir que o experimento é justo, no caso, são usados os mesmos grafos para testar o algoritmo com os três tipos de Heap. Além disso, o fato da contagem ser a mesma para as três significa que o Dijkstra encontrou o mesmo caminho em todos os casos, ou seja, o que vai diferenciar os resultados é o custo interno do método, que é seguido pelo contrato formado na interface MyPriorityQueue.
 
@@ -112,7 +119,7 @@ Para grafos com 100 vértices, a Binary Heap demonstrou ser superior em todas as
 
 ![tempo para 500 vertices](static/new-Config-2/chart_tempo_500.png)
 
-Na segunda rodada de testes com o grafo de 500 vértices, observa-se uma vantagem clara do Binary Heap em grafos mais esparsos(10% - 30%). Porém, na medida em que aumenta-se a densidade, podemos observar uma equiparidade dos resultados e até mesmo uma inversão de resultados para o Fibonacci e Pairing Heap, mostrando-se mais eficiente. Observa-se que o Pairing Heap é um pouco mais eficiente devido ao *overhead*.
+Na segunda rodada de testes com o grafo de 500 vértices, observa-se uma vantagem clara do Binary Heap em grafos mais esparsos(10% - 30%). Porém, na medida em que a densidade aumenta, podemos observar uma equiparidade dos resultados e até mesmo uma inversão de resultados para o Fibonacci e Pairing Heap, mostrando-se mais eficiente. Observa-se que o Pairing Heap é um pouco mais eficiente devido ao *overhead*.
 
 ![tempo para 1000 vertices](static/95-99-1000/chart_tempo_1000.png)
 
@@ -123,13 +130,13 @@ Para uma nova rodada de teste com 1000 vértices, o comportamento em baixas dens
 ![tempo para 1500 vertices](static/new-Config-2/chart_tempo_1500.png)
 
 Para grafos com 1500 vértices, o Binary Heap se mostrou mais eficiente para densidades menores (entre 10% e 50%). A partir de 50% de densidade, em teoria, o Pairing Heap e o Fibonacci Heap deveriam ser mais eficientes que o Binary, porém, o *overhead* de alocação de Nodes nessas estruturas acaba acionando o garbage collector mais vezes.
-No gráfico abaixo, a diferença de tempo é explicada, pois a rodagem do Binary Heap não tem mais acionamentos de GC para grafos com 30% de densidade ou mais, enquanto os outros dois continuam tendo acionamentos. 
+No gráfico abaixo, a diferença de tempo é explicada, pois a execução do Binary Heap não tem mais acionamentos de GC para grafos com 30% de densidade ou mais, enquanto os outros dois continuam tendo acionamentos. 
 
 ![gc count](static/new-Config-2/chart_gc_count_1500.png)
 
 ## Ameaças à validade
 
-1. Fatores de Hardware e Cache: Os experimentos realizados com 5000 vértices e extremamentes densos apresentaram dados incompletos (timeout), limitando a comparabilidade nessas escalas.
+1. Fatores de Hardware e Cache: Os experimentos realizados com 2000 vértices e extremamente densos apresentaram dados incompletos (timeout), limitando a comparabilidade nessas escalas.
 
 2. Tipos de Grafos: Os experimentos foram realizados com um único tipo de grafo (aleatório com densidade uniforme). Grafos com estruturas específicas - como grafos de grade, scale-free ou grafos de redes - podem apresentar comportamentos distintos.
 
@@ -144,4 +151,5 @@ Sob outro ponto de vista, percebemos que a Fibonacci Heap apesar de sua vantagem
 Logo, à luz dessas considerações, constata-se que esses resultados reforçam a importância da análise experimental com complemento indispensável à análise assintótica na engenharia de algoritmos. Isso porque, a escolha de uma estrutura de dados deve considerar não apenas a complexidade teórica, mas as características de hardware para cada objetivo almejado dentre os custos de implementação e manutenção. 
 
 ## Referências
+
 
