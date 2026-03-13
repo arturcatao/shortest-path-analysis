@@ -1,3 +1,9 @@
+/**Esse código utiliza a implementação do Dijkstra encontrada no repositório:
+* https://github.com/TheAlgorithms/Java/tree/master/src/main/java/com/thealgorithms/datastructures/graphs
+* Com algumas modificações para utilizar os grafos em formato de
+* listas de adjacência.
+*/
+
 package algorithms;
 
 import java.util.Arrays;
