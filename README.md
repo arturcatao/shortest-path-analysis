@@ -176,7 +176,7 @@ No gráfico abaixo, a diferença de tempo é explicada, pois a
 execução do *Binary Heap* não tem mais acionamentos de *garbage
 collector* para grafos com 30% de densidade ou mais, enquanto os outros dois continuam tendo acionamentos. 
 
-![gc count](static/10-90%/chart_gc_count_1500.png)
+![gc count](static/10-90-densidades/chart_gc_count_1500.png)
 
 ## Ameaças à validade
 
