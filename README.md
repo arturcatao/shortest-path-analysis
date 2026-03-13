@@ -128,7 +128,7 @@ Essa seção apresenta os resultados quantitativos obtidos nos experimentos orga
 
 **Para Grafos Pequenos (100 vértices):**
 
-![tempo para 100 vertices](static/new-Config-2/chart_tempo_100.png)
+![tempo para 100 vertices](static/10-90%/chart_tempo_100.png)
 
 Para grafos com 100 vértices, a *Binary Heap* demonstrou ser
 superior em todas as densidades testadas. Pode-se verificar que o
@@ -138,7 +138,7 @@ ms/op, um tempo 43 vezes maior que o *Binary Heap*.
 
 **Para Grafos Médios(500 vértices a 1000 vértices):**
 
-![tempo para 500 vertices](static/new-Config-2/chart_tempo_500.png)
+![tempo para 500 vertices](static/10-90%/chart_tempo_500.png)
 
 Na segunda rodada de testes com o grafo de 500 vértices,
 observa-se uma vantagem clara do *Binary Heap* em grafos mais
@@ -147,7 +147,7 @@ podemos observar uma equiparidade dos resultados e até mesmo uma
 inversão de resultados para o *Fibonacci* e *Pairing Heap*,
 mostrando-se mais eficiente. Observa-se que o *Pairing Heap* é um pouco mais eficiente devido ao *overhead*.
 
-![tempo para 1000 vertices com alta densidade](static/new-Config-3/chart_tempo_1000.png)
+![tempo para 1000 vertices com alta densidade](static/10-90%/chart_tempo_1000.png)
 Para uma nova rodada de teste com 1000 vértices, o comportamento
 em baixas densidades (10% - 50%) segue o padrão já observado: a
 *Binary Heap* mantém vantagem consistente.
@@ -161,7 +161,7 @@ ponteiros do *Pairing Heap* são superados pelas operações do
 
 **Para grafos grandes (1500 vértices)** 
 
-![tempo para 1500 vertices](static/new-Config-2/chart_tempo_1500.png)
+![tempo para 1500 vertices](static/10-90/chart_tempo_1500.png)
 
 Para grafos com 1500 vértices, o *Binary Heap* se mostrou mais
 eficiente para densidades menores (entre 10% e 50%). A partir de
