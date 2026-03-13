@@ -152,4 +152,9 @@ Logo, à luz dessas considerações, constata-se que esses resultados reforçam 
 
 ## Referências
 
+- Foi utilizada como base a implementação do Dijkstra do repositório [theAlgorithms](https://github.com/TheAlgorithms/Java/tree/master/src/main/java/com/thealgorithms/datastructures/graphs)
+- Gersting, J. L. Fundamentos matemáticos para a ciência da computação. 3. ed. Rio de Janeiro: LTC, 1993. 518 p.
+- Material Teorico
+  [UFSCAR](https://www.aloc.ufscar.br/felice/ensino/2023s2paa/aula15_bonus.pdf)
+- [Proposta](https://docs.google.com/document/d/1fMD6OlY6tynqjQoEElcDoZvPt-J8uHKtv23cY6m4e3M/edit?usp=sharing) inicial do experimento.
 
