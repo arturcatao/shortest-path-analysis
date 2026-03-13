@@ -40,7 +40,7 @@ Consequentemente, a complexidade do algoritmo de Dijkstra varia de acordo com a 
 
 Estudar e analisar o impacto de diferentes estruturas de dados na 
 fila de prioridade do Dijkstra, e verificar se o seu comportamento assintótico teórico
-se confirma prática quando testado com diferentes tipos de grafos.
+se confirma na prática quando testado com diferentes tipos de grafos.
 
 ## Como rodar os experimentos
 
@@ -100,7 +100,7 @@ Com base nas aproximações teóricas que foram expostas a respeito dos diferent
 
 ## Análise dos resultados
 
-**Contagem de operações DecreaseKey:**
+### Contagem de operações DecreaseKey:
 
 No cenário do algoritmo de Dijkstra para diferentes filas de
 prioridade, a contagem de operações de *decreaseKeys* torna-se
@@ -123,7 +123,7 @@ Em casos pontuais, pode haver uma diferença mínima na contagem, em decorrênci
 ![contador para 100 vertices](static/DecreaseKey/chart_decrease_keys_100.png)
 
 
-**Tempo de Execução no Dijkstra com Diferentes Densidades.**
+### Tempo de Execução no Dijkstra com Diferentes Densidades.
 Essa seção apresenta os resultados quantitativos obtidos nos experimentos organizados por tamanho de grafo. Os gráficos exibem o tempo de execução em ms/op em função da densidade do grafo.
 
 **Para Grafos Pequenos (100 vértices):**
@@ -178,7 +178,7 @@ collector* para grafos com 30% de densidade ou mais, enquanto os outros dois con
 ## Ameaças à validade
 
 1. Fatores de *Hardware* e *Cache*: Os experimentos realizados com
-   2000 vértices e extremamente densos apresentaram dados
+   grafos a partir de 2000 vértices e extremamente densos apresentaram dados
    incompletos (*timeout*), limitando a comparabilidade nessas escalas.
 
 2. Tipos de Grafos: Os experimentos foram realizados com um único
@@ -197,7 +197,7 @@ collector* para grafos com 30% de densidade ou mais, enquanto os outros dois con
    quando comparada com as outras duas. Entretanto, essa vantagem
    não se mostrou verdadeira em nossos testes, isso se deve,
    possivelmente, ao *overhead* prático dessa fila de prioridade,
-   como alocações dinâmicas de Nodes,  *Cache Misses* e até
+   como alocações dinâmicas de *Nodes*,  *Cache Misses* e até
    acionamentos automáticos do *Garbage Collector*. Esse
    comportamento atesta que o comportamento assintótico esperado
    do *Fibonacci Heap* talvez só seja manifestado para grafos com volumes de vértices e arestas bem maiores do que os testados.
@@ -210,7 +210,7 @@ Este experimento demonstrou empiricamente que a Binary Heap, estrutura com compl
 
 - Foi utilizada como base a implementação do Dijkstra do repositório [theAlgorithms](https://github.com/TheAlgorithms/Java/tree/master/src/main/java/com/thealgorithms/datastructures/graphs)
 - Gersting, J. L. Fundamentos matemáticos para a ciência da computação. 3. ed. Rio de Janeiro: LTC, 1993. 518 p.
-- Material Teorico
+- Material Teórico
   [UFSCAR](https://www.aloc.ufscar.br/felice/ensino/2023s2paa/aula15_bonus.pdf)
 - [Proposta Inicial](https://docs.google.com/document/d/1fMD6OlY6tynqjQoEElcDoZvPt-J8uHKtv23cY6m4e3M/edit?usp=sharing) do experimento.
 
