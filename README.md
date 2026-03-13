@@ -147,12 +147,14 @@ podemos observar uma equiparidade dos resultados e até mesmo uma
 inversão de resultados para o *Fibonacci* e *Pairing Heap*,
 mostrando-se mais eficiente. Observa-se que o *Pairing Heap* é um pouco mais eficiente devido ao *overhead*.
 
-![tempo para 1000 vertices](static/95-99-1000/chart_tempo_1000.png) (static/new-Config2/chart_tempo_1000.png)
+![tempo para 1000 vertices](static/95-99-1000/chart_tempo_1000.png)
+
+![tempo para 1000 vertices com alta densidade](static/new-Config-3/chart_tempo_1000.png)
 
 Para uma nova rodada de teste com 1000 vértices, o comportamento
 em baixas densidades (10% - 50%) segue o padrão já observado: a
 *Binary Heap* mantém vantagem consistente. O resultado mais
-relevante surge quando analisamos densidades altas (70% - 90%),
+relevante surge quando analisamos densidades altas (98% - 99%),
 onde essa vantagem se inverte. Nesse cenário, o *overhead* dos
 ponteiros do *Pairing Heap* são superados pelas operações do
 *Binary Heap*, beneficiando-se do maior número de *decreaseKey* realizados em grafos densos para amortizar as operações.
